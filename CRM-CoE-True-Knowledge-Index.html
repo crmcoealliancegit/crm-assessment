@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM CoE True Knowledge Index | Velu Palani</title>
+<style>
+  :root{
+    --navy:#0d2440;--navy2:#16365c;--blue:#1f6feb;--teal:#0fb5ba;--bg:#f4f7fb;--card:#fff;
+    --ink:#15233a;--muted:#5d6b82;--line:#e3e9f2;--gold:#e8a317;--low:#e0533d;--good:#1faa59;
+    --shadow:0 8px 28px rgba(13,36,64,.10);
+  }
+  *{box-sizing:border-box}html,body{margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 18px 80px}
+  header.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:38px 0 30px;text-align:center}
+  header.hero .kick{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#9fc0ff;font-weight:600}
+  header.hero h1{margin:10px 0 6px;font-size:30px;line-height:1.2}
+  header.hero p.sub{margin:0 auto;max-width:700px;color:#cfe0f7;font-size:15.5px;padding:0 18px}
+  header.hero .author{margin-top:14px;font-size:13.5px;color:#9fc0ff}
+  header.hero .author a{color:#bcd4ff;text-decoration:none;border-bottom:1px dotted #6f96d6}
+  .pilotbar{background:#fff3d6;color:#7a5a00;border-bottom:1px solid #f0d98a;text-align:center;font-size:13px;font-weight:600;padding:9px 14px}
+  .pilot-hint{background:#fff3d6;border:1px solid #f0d98a;border-radius:10px;color:#7a5a00;font-size:13px;padding:10px 14px;margin:8px 0 4px}
+  .rate-key{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:5px}
+  .flagrow{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+  .flagbtn{background:none;border:1px solid var(--line);color:var(--muted);font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:14px;cursor:pointer}
+  .flagbtn.on{background:#fdeee6;border-color:#e07c3d;color:#c5571f}
+  .flagreason{flex:1;min-width:180px;font-size:13px;padding:7px 10px;border:1.5px solid #f0c3a3;border-radius:8px}
+  .q.flagged{background:#fff8f4;border-left:3px solid #e07c3d}
+  .fbcard{background:#eef4fc;border:1px solid #d4e2f5;border-radius:14px;padding:20px 22px;margin-top:16px}
+  .fbcard h3{margin:0 0 4px;font-size:18px;color:var(--navy)}
+  .fbcard .lead{color:var(--muted);font-size:13.5px;margin:0 0 14px}
+  .fbcard label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-top:12px}
+  .fbcard textarea,.fbcard select{width:100%;font-size:15px;padding:10px 12px;border:1.5px solid #c4d5ee;border-radius:9px;font-family:inherit;margin-top:5px;background:#fff}
+  .rate{display:flex;gap:6px;margin-top:6px}
+  .rate button{flex:1;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:8px;cursor:pointer;font-weight:600;color:var(--muted)}
+  .rate button.sel{background:var(--navy);color:#fff;border-color:transparent}
+  .fbflags{margin-top:12px;font-size:13px}
+  .fbflags .fitem{padding:6px 0;border-bottom:1px dashed var(--line)}
+  .card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:24px 26px;margin-top:18px}
+  .card h2{margin:0 0 8px;font-size:20px}
+  .intro{margin-top:-26px;position:relative;z-index:2}
+  .muted{color:var(--muted)}
+  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0 4px}
+  .why div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+  .why h4{margin:0 0 4px;font-size:14px;color:var(--navy)}.why p{margin:0;font-size:12.5px;color:var(--muted)}
+  /* lead form */
+  .leadform{margin-top:18px;background:#eef4fc;border:1px solid #d4e2f5;border-radius:12px;padding:20px}
+  .leadform h3{margin:0 0 4px;font-size:18px;color:var(--navy)}
+  .leadform .lf-intro{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
+  .lf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .leadform label{display:flex;flex-direction:column;font-size:13px;font-weight:600;color:var(--navy);gap:5px}
+  .leadform input,.leadform textarea,.leadform select{font-size:15px;padding:10px 12px;border:1.5px solid #c4d5ee;border-radius:9px;font-weight:400;color:var(--ink);font-family:inherit;background:#fff}
+  .leadform input:focus,.leadform textarea:focus,.leadform select:focus{outline:none;border-color:var(--blue)}
+  .lf-block{margin-top:12px}
+  .leadform .consent{flex-direction:row;align-items:flex-start;gap:9px;margin:14px 0 2px;font-size:13px;font-weight:400;color:var(--muted);cursor:pointer}
+  .leadform .consent input{margin-top:3px}
+  .err{color:#d33;font-size:13px;font-weight:600;margin:8px 0;min-height:16px}
+  .startbtn{display:inline-block;margin-top:16px;background:var(--blue);color:#fff;border:none;font-size:16px;font-weight:600;padding:13px 30px;border-radius:30px;cursor:pointer;box-shadow:0 6px 16px rgba(31,111,235,.35);transition:.15s}
+  .startbtn:hover{transform:translateY(-1px);background:#1a5fd0}
+  .note{margin:14px 0 0;font-size:12px;color:var(--muted)}
+  /* progress + quiz */
+  .progress-wrap{position:sticky;top:0;z-index:20;background:rgba(244,247,251,.96);backdrop-filter:blur(6px);padding:12px 0;border-bottom:1px solid var(--line)}
+  .progress-inner{max-width:980px;margin:0 auto;padding:0 18px;display:flex;align-items:center;gap:14px}
+  .pbar{flex:1;height:9px;background:#dfe7f2;border-radius:6px;overflow:hidden}
+  .pbar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--teal));transition:width .3s}
+  .pcount{font-size:13px;color:var(--muted);font-weight:600;white-space:nowrap}
+  .scalekey{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:14px 0 2px}
+  .scalekey span{font-size:11.5px;background:#eef3fb;border:1px solid var(--line);border-radius:20px;padding:4px 10px;color:var(--navy)}
+  .cap-page{display:none}.cap-page.active{display:block}
+  .page-head{display:flex;align-items:center;gap:12px;margin:18px 2px 8px}
+  .page-head .dot{width:14px;height:14px;border-radius:4px}.page-head h3{margin:0;font-size:19px}
+  .page-head .sub{font-size:12.5px;color:var(--muted);margin-left:auto}
+  .cap{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:6px 8px 4px}
+  .q{padding:16px 14px;border-bottom:1px solid var(--line)}.q:last-child{border-bottom:none}
+  .q .stmt{font-size:15px;font-weight:600;margin:0 0 3px}
+  .q .def{font-size:12px;color:var(--muted);margin:0 0 11px}
+  .opts{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+  .opts label{position:relative;cursor:pointer}
+  .opts input{position:absolute;opacity:0;inset:0;cursor:pointer}
+  .opts .pill{display:block;text-align:center;font-size:11.5px;font-weight:600;color:var(--muted);background:var(--bg);border:1.5px solid var(--line);border-radius:9px;padding:9px 4px;transition:.12s;line-height:1.2}
+  .opts .pill small{display:block;font-size:9.5px;font-weight:600;opacity:.7;margin-top:2px}
+  .opts label:hover .pill{border-color:#b9cbe6}
+  .opts input:checked+.pill{color:#fff;border-color:transparent}
+  .opts label[data-v="4"] input:checked+.pill{background:#1faa59}
+  .opts label[data-v="3"] input:checked+.pill{background:#46a06b}
+  .opts label[data-v="2"] input:checked+.pill{background:#e8a317}
+  .opts label[data-v="1"] input:checked+.pill{background:#e07c3d}
+  .opts label[data-v="0"] input:checked+.pill{background:#e0533d}
+  .quizfoot{display:flex;align-items:center;gap:14px;margin-top:22px}
+  .navbtn{background:#fff;border:1.5px solid var(--line);color:var(--navy);font-weight:600;font-size:15px;padding:12px 26px;border-radius:28px;cursor:pointer}
+  .navbtn:hover:not(:disabled){border-color:#b9cbe6}
+  .navbtn.primary{background:var(--navy);color:#fff;border-color:transparent;margin-left:auto}
+  .navbtn:disabled{opacity:.4;cursor:not-allowed}
+  .quizfoot .hint{flex:1;text-align:center;font-size:12.5px;color:var(--muted)}
+  /* results */
+  #results{display:none}
+  .res-hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:16px;padding:28px;text-align:center;box-shadow:var(--shadow)}
+  .res-hero .greet{font-size:13.5px;color:#9fc0ff;margin:0 0 2px}
+  .res-hero .lbl{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:#9fc0ff;font-weight:600;margin-top:6px}
+  .gauge{font-size:56px;font-weight:800;line-height:1;margin:4px 0}
+  .band{display:inline-block;font-size:14px;font-weight:700;padding:6px 16px;border-radius:20px;margin-top:4px}
+  .gapline{color:#cfe0f7;max-width:640px;margin:16px auto 0;font-size:15px}
+  .gapline b{color:#fff}
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+  .statcard{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:16px;text-align:center}
+  .statcard .t{font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700}
+  .statcard .n{font-size:30px;font-weight:800;margin:4px 0;line-height:1}
+  .statcard .s{font-size:12px;color:var(--muted)}
+  .sec{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:20px 22px;margin-top:16px}
+  .sec h3{margin:0 0 4px;font-size:18px}.sec .lead{color:var(--muted);font-size:13.5px;margin:0 0 14px}
+  .dom-row{margin:13px 0}.dom-row .top{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:5px}
+  .track{height:13px;background:#eef2f8;border-radius:7px;overflow:hidden}.track>i{display:block;height:100%;border-radius:7px}
+  .dom-guide{font-size:12.5px;color:var(--muted);margin:4px 0 0}
+  .radar-wrap{display:flex;justify-content:center}.radar-wrap svg{width:100%;max-width:460px;height:auto}
+  .fr{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+  .fr:last-child{border-bottom:none}.fr .dotf{width:9px;height:9px;border-radius:50%;flex:none}
+  .fr .nm{flex:1}.fr .tag{font-size:11px;font-weight:700}
+  .miss{padding:11px 0;border-bottom:1px dashed var(--line)}.miss:last-child{border-bottom:none}
+  .miss .mh{display:flex;justify-content:space-between;font-weight:600;font-size:14px}
+  .miss .mg{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .cta{background:linear-gradient(135deg,#13243d,#1f4a6e);color:#fff;border-radius:16px;padding:26px;margin-top:18px;text-align:center}
+  .cta h3{margin:0 0 8px;font-size:21px}.cta p{color:#cfe0f7;max-width:660px;margin:0 auto 16px;font-size:14.5px}
+  .cta .paths{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 4px;text-align:left}
+  .cta .paths a{display:block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:14px;color:#fff;text-decoration:none}
+  .cta .paths h4{margin:0 0 4px;font-size:14px;color:var(--gold)}.cta .paths span{font-size:12.5px;color:#cfe0f7}
+  .toolbar{text-align:center;margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .toolbar button{background:#fff;border:1.5px solid var(--line);color:var(--navy);font-weight:600;font-size:14px;padding:11px 22px;border-radius:26px;cursor:pointer}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px;padding:0 18px}
+  @media(max-width:620px){.why,.trio,.cta .paths{grid-template-columns:1fr}.lf-grid{grid-template-columns:1fr}.navbtn.primary{margin-left:0}header.hero h1{font-size:24px}.gauge{font-size:46px}}
+  @media print{.progress-wrap,.startbtn,.navbtn,.toolbar,.quizfoot{display:none!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="kick">CRM Mastery Program</div>
+  <h1>CRM CoE True Knowledge Index</h1>
+  <p class="sub">How confident you feel about CRM isn't the same as how current you are. This assessment measures your <strong>true knowledge</strong> against the agentic CRM ecosystem — and shows you exactly where the gap is.</p>
+  <div class="author">By <strong>Velu Palani</strong> · <a href="https://www.crmcoealliance.org" target="_blank" rel="noopener">crmcoealliance.org</a> · grounded in <em>A Master Framework for the CRM CoE</em></div>
+</header>
+
+<div class="wrap">
+  <!-- INTRO + LEAD FORM -->
+  <section class="card intro" id="intro">
+    <h2>What this measures</h2>
+    <p class="muted">The CRM has shifted from a click-driven <em>System of Record</em> to an API-driven <em>System of Execution</em> run by AI agents. Most practitioners were never trained for this shift — the <strong>Builder Gap</strong>. This index measures your knowledge against that new reality across <strong>27 functions</strong> (9 capabilities, 3 domains) plus <strong>10 frontier markers</strong>, then shows the gap between how capable you feel and where the ecosystem actually is.</p>
+    <div class="why">
+      <div><h4>Perceived competence</h4><p>How capable you feel across the 27 CoE functions.</p></div>
+      <div><h4>Frontier currency</h4><p>How current you are with the agentic shift — MCP, Agentforce, Headless 360.</p></div>
+      <div><h4>Ecosystem coverage</h4><p>How much of the ecosystem is even on your radar.</p></div>
+    </div>
+
+    <div class="pilot-hint" style="margin-top:16px">&#128681; <strong>This is a pilot.</strong> As you go through the assessment, flag any question that feels irrelevant, wrong, or unclear, and leave feedback at the end — it directly shapes the final version. Thank you for helping.</div>
+
+    <div class="rolepick" style="margin-top:14px;background:#eef4fc;border:1px solid #d4e2f5;border-radius:12px;padding:16px 18px">
+      <label style="display:block;font-weight:700;color:var(--navy);font-size:14.5px;margin-bottom:8px">Pick your category and role — it tailors every question to your world:</label>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <select id="catSelect" onchange="onCategoryChange()" aria-label="Category" style="flex:1;min-width:200px;max-width:340px;font-size:15px;padding:11px 12px;border:1.5px solid #c4d5ee;border-radius:9px;background:#fff;color:var(--ink);cursor:pointer"></select>
+        <select id="roleSelect" onchange="onRoleChange()" aria-label="Role" style="flex:1;min-width:200px;max-width:340px;font-size:15px;padding:11px 12px;border:1.5px solid #c4d5ee;border-radius:9px;background:#fff;color:var(--ink);cursor:pointer"></select>
+      </div>
+    </div>
+
+    <div class="leadform">
+      <h3>Tell us about you to begin</h3>
+      <p class="lf-intro">We use this to send your results and tailor CRM Mastery resources to your goals. About a minute, then your assessment starts.</p>
+      <div class="lf-grid">
+        <label>First name*<input type="text" id="lfFirst" autocomplete="given-name"></label>
+        <label>Last name*<input type="text" id="lfLast" autocomplete="family-name"></label>
+        <label>Work email*<input type="email" id="lfEmail" autocomplete="email" placeholder="you@company.com"></label>
+        <label>Phone<input type="tel" id="lfPhone" autocomplete="tel" placeholder="Optional"></label>
+        <label>Company*<input type="text" id="lfCompany" autocomplete="organization"></label>
+        <label>Role / title<input type="text" id="lfRole" placeholder="e.g. CRM Architect, CIO"></label>
+      </div>
+      <label class="lf-block" style="display:block;font-size:13px;font-weight:600;color:var(--navy)">Technology platform*
+        <select id="lfPlatform" style="width:100%;margin-top:5px">
+          <option value="">Select your CRM platform…</option>
+          <option>Salesforce</option>
+          <option>MS Dynamics CRM</option>
+          <option>SAP CRM</option>
+          <option>Oracle CRM</option>
+          <option>HubSpot</option>
+          <option>Modern CRM (like Attio)</option>
+          <option>Other</option>
+        </select></label>
+      <label class="lf-block" style="display:block;font-size:13px;font-weight:600;color:var(--navy)">Location
+        <input type="text" id="lfLocation" placeholder="City, Country" style="width:100%;margin-top:5px"></label>
+      <label class="lf-block" style="display:block;font-size:13px;font-weight:600;color:var(--navy)">What&apos;s your career challenge in the AI era?*
+        <textarea id="lfChallenge" rows="3" placeholder="A sentence or two…" style="width:100%;margin-top:5px"></textarea></label>
+      <label class="lf-block" style="display:block;font-size:13px;font-weight:600;color:var(--navy)">How are you planning to keep up with the AI disruption?*
+        <textarea id="lfPlan" rows="3" placeholder="A sentence or two…" style="width:100%;margin-top:5px"></textarea></label>
+      <label class="consent"><input type="checkbox" id="lfConsent" checked> I&apos;d like to receive my results and occasional CRM Mastery insights from Velu Palani.</label>
+      <div class="err" id="lfErr"></div>
+      <button class="startbtn" onclick="validateAndStart()">Start the assessment &rarr;</button>
+      <p class="note">Your details stay private and are used only to share your results and CRM Mastery resources.</p>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <div id="quizScreen" style="display:none">
+    <div class="progress-wrap">
+      <div class="progress-inner">
+        <span class="pcount" id="roleTagQ" style="background:#e7effb;color:var(--navy);border-radius:14px;padding:3px 11px;font-weight:700;white-space:nowrap">Role</span>
+        <span class="pcount" id="pageLabel">Section 1</span>
+        <div class="pbar"><i id="pbarFill"></i></div>
+        <div class="pcount"><span id="pdone">0</span>/37</div>
+      </div>
+    </div>
+    <div class="scalekey">
+      <span><strong>Lead/teach</strong></span><span><strong>Independently</strong></span>
+      <span><strong>With help</strong></span><span><strong>Aware</strong></span><span><strong>Not familiar</strong></span>
+    </div>
+    <div class="pilot-hint">&#128681; <strong>Pilot:</strong> if any question feels irrelevant, wrong, or unclear, click <em>Flag this question</em> right below it (and tell us why). Your flags shape the final assessment.</div>
+    <div id="quizPages"></div>
+    <div class="quizfoot">
+      <button class="navbtn" id="backBtn" onclick="prevPage()">&larr; Back</button>
+      <span class="hint" id="pageHint"></span>
+      <button class="navbtn primary" id="nextBtn" onclick="nextPage()" disabled>Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results"></div>
+
+  <footer>&copy; <span id="yr"></span> Velu Palani · CRM CoE Alliance. True Knowledge Index based on <em>A Master Framework for the CRM Center of Excellence</em> (Chapter 2: The Agentic Cookbook). For personal development insight only.</footer>
+</div>
+
+<script>
+/* ============ DATA ============ */
+const DOMAINS={"Customer-Centricity":{color:"#2f6df0"},"Operations":{color:"#0fb5ba"},"Foundation":{color:"#7a5af5"}};
+const SCALE=[{v:4,t:"Lead/teach",s:"I set the standard"},{v:3,t:"Independently",s:"I can do this"},{v:2,t:"With help",s:"I can apply it"},{v:1,t:"Aware",s:"I know of it"},{v:0,t:"Not familiar",s:"New to me"}];
+// 27 functions reframed to the agentic Standard (book Ch.2). gap = the concept they're missing if low.
+const FUNCTIONS=[
+ {id:1,d:"Customer-Centricity",c:"Vision & Strategy",f:"Goal Setting",q:"I can define an AI agent's 'Digital Job Description' — authorized actions, autonomy boundaries, escalation triggers — and map each to a business KPI.",gap:"Digital Job Descriptions & agent KPI mapping"},
+ {id:2,d:"Customer-Centricity",c:"Vision & Strategy",f:"Transparency",q:"I can implement Session Tracing so stakeholders can audit, in real time, what an autonomous agent did and why.",gap:"Session Tracing & agent observability"},
+ {id:3,d:"Customer-Centricity",c:"Vision & Strategy",f:"Purpose-Driven",q:"I ground agents in organizational context (Data 360 / Context Graph) so they act on full customer history, prioritizing digital-labor targets with 15–20x ROI.",gap:"Data 360 grounding & the Context Graph"},
+ {id:4,d:"Customer-Centricity",c:"Go-to-Market",f:"Marketing",q:"I can trigger real-time, event-driven marketing agents from Data 360 signals and render branded interactive cards across Slack/Teams/WhatsApp via AXL.",gap:"Event-driven agents & AXL rendering"},
+ {id:5,d:"Customer-Centricity",c:"Go-to-Market",f:"Sales Operations",q:"I can design an Agentforce agent that governs the Quote-to-Cash lifecycle, reasoning across quotes and invoices via Data 360.",gap:"Agentforce Revenue Management (Quote-to-Cash)"},
+ {id:6,d:"Customer-Centricity",c:"Go-to-Market",f:"Service Center",q:"I can deploy a service agent that resolves cases inline in Slack/WhatsApp and escalates to a human with full context preserved (target <10% escalation).",gap:"Inline resolution & context-preserving escalation"},
+ {id:7,d:"Customer-Centricity",c:"Innovation",f:"Ideation",q:"I can orchestrate multi-model, open innovation — connecting third-party agents (Copilot, Gemini, Claude) via MCP and reusing skills from an agent catalog.",gap:"Multi-model orchestration via MCP / AgentExchange"},
+ {id:8,d:"Customer-Centricity",c:"Innovation",f:"Experimentation",q:"I can run read-only agent pilots and 4-week Proof-of-Value cycles, scoring outcomes against a defined rubric to build the 'eval muscle'.",gap:"Read-only pilots & evaluation rubrics"},
+ {id:9,d:"Customer-Centricity",c:"Innovation",f:"Value Creation",q:"I can quantify agentic value as Time Compression (labor reallocation + revenue acceleration) and target ROI-positive by Day 180.",gap:"The Time Compression value model"},
+ {id:10,d:"Operations",c:"PMO",f:"Talent Management",q:"I can build reskilling paths that bridge the Builder Gap — moving staff from data entry to 'Agentic Strategist' and system-supervision roles.",gap:"Reskilling for the Builder Gap"},
+ {id:11,d:"Operations",c:"PMO",f:"Budget",q:"I run CRM-AI economics with FinOps discipline — tracking 'Cost per Decision' (target <$0.20 for 15x ROI) and using tier-capped model routing.",gap:"FinOps 'Cost per Decision' & model routing"},
+ {id:12,d:"Operations",c:"PMO",f:"Product Roadmap",q:"I design API-first roadmaps (API contract before page layout), prioritized by 'Agentic Opportunity', with read-only launches before write-access.",gap:"API-first roadmapping"},
+ {id:13,d:"Operations",c:"Change Management",f:"Change Control",q:"I version agent logic in Git with PR review, kill switches, and Custom Scoring Evals before anything reaches production.",gap:"Git-versioned agents, kill switches & Evals"},
+ {id:14,d:"Operations",c:"Change Management",f:"Adoption",q:"I drive adoption through the 'Agentic Front Door' (Slack), embedding the CRM into conversation threads to cut context-switching.",gap:"The 'Agentic Front Door' (Slack adoption)"},
+ {id:15,d:"Operations",c:"Change Management",f:"Agile Framework",q:"I can move from Agile to Agentic delivery — using AI coding agents and DevOps Center MCP, tracking 'Agent Velocity' DORA metrics.",gap:"Agentic delivery & DevOps Center MCP"},
+ {id:16,d:"Operations",c:"Alignment",f:"Workflow / Process",q:"I map processes for reasoning vs. rules, event-driven (CDC / Platform Events), with distributed tracing and idempotency.",gap:"Event-driven, reasoning-based process maps"},
+ {id:17,d:"Operations",c:"Alignment",f:"Simplification",q:"I solve the N×M integration problem with MCP (one server per system) and strip the 'head' (UI) to run on Headless 360 APIs.",gap:"MCP standardization & Headless 360"},
+ {id:18,d:"Operations",c:"Alignment",f:"Maintainability",q:"I maintain agents via human-readable Agent Script blueprints, contract testing for event payloads, and monthly regression health checks.",gap:"Agent Script maintainability & contract testing"},
+ {id:19,d:"Foundation",c:"Risk Management",f:"Risk Mitigation",q:"I can mitigate prompt-injection / ForcedLeak delegation attacks, redact sensitive fields at the boundary, and maintain a Shadow-AI registry.",gap:"Prompt-injection / ForcedLeak defense"},
+ {id:20,d:"Foundation",c:"Risk Management",f:"Access Control",q:"I assign non-human agent identities with least-privilege, short-lived tokens (OAuth 2.1 + PKCE) and enforce authorization at the API layer.",gap:"Non-human identities & OAuth 2.1 + PKCE"},
+ {id:21,d:"Foundation",c:"Risk Management",f:"Business Continuity",q:"I build reasoning resilience — managing MCP availability/latency, kill switches, rollback, and response caching during inference outages.",gap:"Reasoning resilience & rollback"},
+ {id:22,d:"Foundation",c:"DevOps",f:"Continuous Development",q:"I run natural-language CD via DevOps Center MCP, treating agent logic like Apex with blast-radius management and secret servers.",gap:"Natural-language CD via DevOps Center MCP"},
+ {id:23,d:"Foundation",c:"DevOps",f:"Testing & Automation",q:"I validate agent decisions with Custom Scoring Evals and per-agent regression suites, piping traces via OpenTelemetry to Splunk/Datadog.",gap:"Custom Scoring Evals & agent observability"},
+ {id:24,d:"Foundation",c:"DevOps",f:"Talent Development",q:"I build career paths that retrain admins for agentic configuration and preserve critical thinking via 'AI-free' assessments.",gap:"Agentic reskilling & AI-free critical thinking"},
+ {id:25,d:"Foundation",c:"Data Architecture",f:"Data Integration",q:"I can replace M×N custom connectors with an MCP-based M+N model and Zero-Copy Data 360.",gap:"Zero-Copy Data 360 & MCP integration"},
+ {id:26,d:"Foundation",c:"Data Architecture",f:"Data Quality",q:"I clean the org before scaling AI (headless amplifies dirty data) and ground agents in governed data to prevent hallucinations.",gap:"Org health & hallucination prevention"},
+ {id:27,d:"Foundation",c:"Data Architecture",f:"Data Standardization",q:"I enforce CoE-wide naming for agents/topics/actions, a semantic layer for query interpretation, and versioned data contracts.",gap:"Semantic layer, naming standards & contracts"}
+];
+// 10 Frontier Markers — the currency detector
+const MARKERS=[
+ {id:"F1",label:"Headless 360",q:"I can explain what Salesforce Headless 360 changes — the CRM as an API-driven 'System of Execution' rather than a UI 'System of Record'."},
+ {id:"F2",label:"MCP",q:"I know what the Model Context Protocol (MCP) is and the N×M integration problem it solves."},
+ {id:"F3",label:"Builder Gap",q:"I understand the 'Builder Gap' and what it means for my role and career."},
+ {id:"F4",label:"AXL",q:"I can describe the Agentforce Experience Layer (AXL) and 'build once, render anywhere' across surfaces."},
+ {id:"F5",label:"Agent Fabric",q:"I understand 'Agent Fabric' as a unified governance plane for multi-vendor agents."},
+ {id:"F6",label:"Observability",q:"I know how Session Tracing and agent observability provide real-time auditability."},
+ {id:"F7",label:"FinOps",q:"I track agent economics with FinOps metrics like 'Cost per Decision' and tier-capped model routing."},
+ {id:"F8",label:"ForcedLeak",q:"I can explain the ForcedLeak prompt-injection risk and how to defend CRM agents against it."},
+ {id:"F9",label:"Agent Script & Evals",q:"I know how Agent Script defines agent blueprints and how Custom Scoring Evals gate them to production."},
+ {id:"F10",label:"AI-free competence",q:"I could pass an 'AI-free' assessment — reasoning about CRM architecture without an AI assistant."}
+];
+/* ===== Categories & roles (from v1) ===== */
+const CATEGORIES=[
+ {key:"prac",label:"Practitioners",roles:["developer","architect","projmgr","pm","ba","tester","admin","superuser","trainer"]},
+ {key:"csuite",label:"C-Suite",roles:["cio","cfo","cro","cmo","cco","entarch"]},
+ {key:"sales",label:"Sales",roles:["cro","salesldr","salesops","salesrep"]},
+ {key:"service",label:"Service",roles:["cco","csmgr","svcagent"]},
+ {key:"marketing",label:"Marketing",roles:["cmo","mktgmgr","mktgops"]},
+ {key:"other",label:"Other",roles:["other"]}
+];
+const ROLES=[
+ {key:"developer",label:"CRM Developer",crit:[3,13,15,16,17,18,22,23,25,26,27]},
+ {key:"architect",label:"CRM Architect",crit:[3,12,13,16,17,18,19,20,21,22,25,26,27]},
+ {key:"projmgr",label:"CRM Project Manager",crit:[1,2,3,10,11,12,13,14,15,16]},
+ {key:"pm",label:"CRM Product Manager",crit:[1,2,3,4,5,6,7,8,9,11,12,14,15]},
+ {key:"ba",label:"Business Analyst",crit:[1,2,3,4,5,6,7,14,15,16,26]},
+ {key:"tester",label:"Tester / QA",crit:[13,15,16,18,19,22,23,26,27]},
+ {key:"admin",label:"System Administrator",crit:[13,14,17,18,19,20,21,23,25,26,27]},
+ {key:"superuser",label:"CRM Super User",crit:[2,3,4,5,6,14,16,17,26,27]},
+ {key:"trainer",label:"CRM Trainer",crit:[2,4,5,6,13,14,15,16,24,26]},
+ {key:"cio",label:"CIO",crit:[1,2,3,11,13,17,18,19,20,21,24,25,26,27]},
+ {key:"cfo",label:"CFO",crit:[1,2,3,10,11,12,19,21,26]},
+ {key:"cro",label:"CRO (Chief Revenue Officer)",crit:[1,3,4,5,6,9,11,12,14,26]},
+ {key:"cmo",label:"CMO (Chief Marketing Officer)",crit:[1,3,4,5,7,8,9,11,14,26]},
+ {key:"cco",label:"CCO (Chief Customer Officer)",crit:[1,2,3,4,5,6,7,9,14,26]},
+ {key:"entarch",label:"Chief Enterprise Architect",crit:[1,3,12,13,16,17,18,19,20,21,22,25,26,27]},
+ {key:"salesldr",label:"Sales Leader",crit:[1,2,3,4,5,9,10,12,14,26]},
+ {key:"salesops",label:"Sales Operations",crit:[2,3,4,5,12,14,16,17,26,27]},
+ {key:"salesrep",label:"Sales Rep / Account Executive",crit:[2,3,4,5,6,14,26]},
+ {key:"csmgr",label:"Customer Service Manager",crit:[1,2,3,6,7,10,14,16,17,26]},
+ {key:"svcagent",label:"Service Agent / Representative",crit:[2,3,6,14,16,26]},
+ {key:"mktgmgr",label:"Marketing Manager",crit:[1,3,4,5,7,8,9,11,14,26]},
+ {key:"mktgops",label:"Marketing Operations",crit:[2,3,4,8,14,16,17,25,26,27]},
+ {key:"other",label:"Other",crit:[]}
+];
+const roleByKey=k=>ROLES.find(r=>r.key===k)||ROLES[ROLES.length-1];
+const categoryByKey=k=>CATEGORIES.find(c=>c.key===k)||CATEGORIES[0];
+/* ===== Agentic + role-tailored wording for the 27 functions (Other falls back to FUNCTIONS[i].q) ===== */
+const ROLE_STATEMENTS={};
+Object.assign(ROLE_STATEMENTS,{
+ cfo:{1:"I ensure every agent's 'Digital Job Description' ties autonomous actions to a measurable financial KPI.",2:"I require Session Tracing so finance can audit agent decisions and the spend behind them.",3:"I fund only Data 360–grounded agents that prove 15–20x ROI over human workflows.",4:"I judge marketing agents by acquisition cost and the revenue their event-driven campaigns return.",5:"I back Agentforce Revenue Management agents that compress Quote-to-Cash and protect margin.",6:"I value service agents by cost-to-serve and the retention revenue inline resolution protects.",7:"I weigh multi-model/MCP innovation by upside versus token and integration cost.",8:"I favor read-only pilots and 4-week PoVs that validate value before capital is committed.",9:"I measure value creation as Time Compression — labor reallocation plus revenue acceleration, ROI by Day 180.",10:"I fund reskilling that bridges the Builder Gap and lowers the cost of redundant manual labor.",11:"I run agent FinOps — 'Cost per Decision' (<$0.20 for 15x ROI), tier-capped routing, Shadow-AI loss budgeting.",12:"I prioritize the roadmap by ROI and Agentic Opportunity, funding read-only before write-access.",13:"I insist on kill switches and Custom Scoring Evals to avoid the cost of an autonomous-agent failure.",14:"I treat adoption as realizing agent ROI rather than writing off stranded AI investment.",15:"I value agentic delivery for converting spend into outcomes faster (Agent Velocity).",16:"I use process maps to expose where agentic reasoning cuts cost and compresses cycle time.",17:"I back MCP standardization and Headless 360 for ~50% lower integration cost.",18:"I budget 20–30% for maintainability to avoid the compounding cost of agent technical debt.",19:"I quantify and govern agent risk exposure — ForcedLeak, prompt injection, Shadow-AI losses.",20:"I treat agent access controls and non-human identities as breach-cost avoidance.",21:"I fund reasoning resilience and rollback so autonomous functions survive disruption without revenue loss.",22:"I value natural-language CD for lower delivery risk and avoided cost of failed agent releases.",23:"I back Custom Scoring Evals and observability that cut error-driven cost and protect data integrity.",24:"I invest in agentic reskilling that reduces turnover and external-hire cost.",25:"I back Zero-Copy Data 360 and MCP to eliminate duplicate system and integration cost.",26:"I treat data quality as essential to trustworthy agent decisions and avoiding bad-data cost.",27:"I fund data standardization to cut duplication and the cost of reconciling agent data."},
+ cio:{1:"I set agent 'Digital Job Descriptions' across the estate, tying autonomy boundaries to enterprise KPIs.",2:"I own Session Tracing and agent observability as the enterprise transparency standard.",3:"I ground agents in Data 360 / the Context Graph so they act on full, governed context.",4:"I ensure the platform reliably runs event-driven marketing agents and AXL rendering at scale.",5:"I ensure the platform runs Agentforce Revenue Management across the Quote-to-Cash lifecycle.",6:"I ensure the platform resolves service inline (Slack/WhatsApp) with context-preserving escalation.",7:"I enable multi-model, open innovation — third-party agents via MCP and a reusable skill catalog.",8:"I provision agent-aware sandboxes for read-only pilots and rubric-scored experiments.",9:"I turn platform capability into value via Time Compression and Day-180 ROI.",10:"I lead reskilling that bridges the Builder Gap toward Agentic Strategist roles.",11:"I run platform FinOps — Cost per Decision and tier-capped model routing.",12:"I govern an API-first roadmap prioritized by Agentic Opportunity, read-only before write.",13:"I own change control for agents — Git versioning, kill switches, Custom Scoring Evals.",14:"I drive enterprise adoption through the Agentic Front Door, cutting context-switching.",15:"I run agentic delivery with DevOps Center MCP and Agent Velocity metrics.",16:"I ensure processes are mapped for reasoning vs rules, event-driven with idempotency.",17:"I drive MCP standardization and Headless 360 to remove integration complexity.",18:"I keep agents maintainable via Agent Script, contract testing, and regression health checks.",19:"I own agent risk — ForcedLeak/prompt-injection defense, boundary redaction, Shadow-AI registry.",20:"I own non-human identities, least-privilege, OAuth 2.1+PKCE, and API-layer authorization.",21:"I own reasoning resilience — MCP availability, kill switches, rollback, response caching.",22:"I run natural-language CD via DevOps Center MCP with blast-radius and secret management.",23:"I ensure Custom Scoring Evals, regression suites, and OpenTelemetry observability across agents.",24:"I build agentic career paths and preserve critical thinking via AI-free assessments.",25:"I own Zero-Copy Data 360 and MCP integration across the enterprise.",26:"I am accountable for org health and governed data that prevents agent hallucination.",27:"I enforce CoE-wide agent naming, a semantic layer, and versioned data contracts."},
+ cro:{1:"I set revenue-agent 'Digital Job Descriptions' tied to pipeline and growth KPIs.",2:"I require Session Tracing so I can trust and audit agent-driven revenue activity.",3:"I ground revenue agents in Data 360 so outreach reflects full customer context.",4:"I drive event-driven marketing agents that grow demand and lower acquisition cost.",5:"I deploy Agentforce Revenue Management agents that compress Quote-to-Cash and lift velocity.",6:"I use service agents to protect and expand revenue through retention and inline resolution.",7:"I harness multi-model agents to open new revenue plays and reuse winning skills.",8:"I test go-to-market agent plays via read-only pilots and scale what grows revenue.",9:"I drive value creation that turns Time Compression into accelerated revenue.",10:"I reskill revenue teams from manual entry to supervising selling agents.",11:"I manage revenue-agent economics — Cost per Decision against return on GTM spend.",12:"I shape an API-first roadmap so revenue-driving agent capabilities ship first.",13:"I rely on governed agent change control (kill switches, Evals) to keep revenue systems stable.",14:"I drive front-line adoption of agents through the Slack Agentic Front Door.",15:"I value agentic delivery for getting revenue capabilities to market faster.",16:"I map the revenue process for agent reasoning to lift conversion and compress cycles.",17:"I simplify the revenue stack via MCP so agents plug into selling tools instantly.",18:"I depend on maintainable agents so the revenue engine keeps running.",19:"I limit agent risks — ForcedLeak and data exposure — that threaten deals and trust.",20:"I expect scoped agent identities and access that protect customer data in the revenue motion.",21:"I depend on reasoning resilience so selling agents survive disruption.",22:"I favor incremental agent delivery so revenue tooling improves without risky releases.",23:"I rely on Custom Scoring Evals so revenue agents and data stay trustworthy.",24:"I develop revenue talent to supervise and coach alongside selling agents.",25:"I rely on Zero-Copy Data 360 to give revenue agents a complete customer view.",26:"I depend on governed data quality for accurate agent forecasting and decisions.",27:"I rely on standardized customer data so revenue agents operate cleanly at scale."},
+ cmo:{1:"I set marketing-agent 'Digital Job Descriptions' tied to growth and brand KPIs.",2:"I require Session Tracing to audit how marketing agents act and spend.",3:"I ground marketing agents in Data 360 so personalization reflects real customer context.",4:"I own event-driven marketing agents and AXL rendering across Slack/WhatsApp/Teams.",5:"I align marketing agents with Agentforce revenue agents so demand converts.",6:"I use service-agent insight to shape messaging and protect customer sentiment.",7:"I drive multi-model ideation for new agent-powered campaigns and experiences.",8:"I run agent A/B experiments and read-only pilots to learn what converts.",9:"I create value through agent campaigns that grow customers and revenue.",10:"I reskill marketers from manual execution to orchestrating marketing agents.",11:"I manage martech-agent spend with FinOps discipline and return on spend.",12:"I shape an API-first roadmap so the marketing-agent capabilities I need ship on time.",13:"I rely on governed agent change control so marketing journeys stay stable.",14:"I drive marketing-team adoption of agents via the Slack Agentic Front Door.",15:"I value agentic delivery for shipping campaign capabilities faster.",16:"I map the funnel for agent reasoning to remove friction lead-to-revenue.",17:"I simplify the martech stack via MCP so agents connect instantly.",18:"I depend on maintainable agents so campaigns run reliably.",19:"I limit agent risks to campaigns, customer data, and brand (ForcedLeak, leakage).",20:"I expect scoped agent access and consent controls protecting prospect data.",21:"I depend on reasoning resilience so marketing operations survive disruption.",22:"I favor incremental agent delivery so martech improves without risky releases.",23:"I rely on Custom Scoring Evals so marketing data and agent journeys stay reliable.",24:"I develop data-fluent marketing talent to supervise marketing agents.",25:"I rely on Zero-Copy Data 360 for a unified, agent-ready customer view.",26:"I depend on governed data quality for accurate agent targeting and attribution.",27:"I rely on standardized data so marketing agents segment cleanly."},
+ cco:{1:"I set customer-agent 'Digital Job Descriptions' tied to retention and experience KPIs.",2:"I require Session Tracing so customer-facing agent actions are transparent and accountable.",3:"I ground agents in Data 360 so every customer interaction reflects full history.",4:"I ensure marketing agents set expectations the experience can deliver.",5:"I ensure sales agents hand off to service with full context preserved.",6:"I own service agents that resolve inline (Slack/WhatsApp) and escalate with context.",7:"I channel customer signals into agent-powered product and experience ideas.",8:"I run experiments to improve the agent-assisted customer journey on evidence.",9:"I create value by designing agent experiences that deepen loyalty and lifetime value.",10:"I reskill customer teams to supervise agents at the moments that matter.",11:"I manage budget toward customer agents that protect and grow lifetime value.",12:"I shape the roadmap so customer-impacting agent capabilities ship first.",13:"I rely on governed agent change control so customer-facing systems stay dependable.",14:"I drive adoption of agents that improve the customer experience.",15:"I value agentic delivery for improving the experience continuously.",16:"I map the journey for agent reasoning to remove friction at every touchpoint.",17:"I simplify customer processes via MCP so agents make the experience effortless.",18:"I depend on maintainable agents so the experience stays consistent.",19:"I limit agent risks — ForcedLeak, data exposure — that threaten customer trust.",20:"I expect scoped agent identities and access that protect customer data and privacy.",21:"I depend on reasoning resilience so customers are served through disruption.",22:"I favor incremental agent delivery so experience improves without disruption.",23:"I rely on Custom Scoring Evals so customer agents and data stay reliable.",24:"I develop customer-facing talent to supervise agents and raise service standards.",25:"I rely on Zero-Copy Data 360 for a single, complete view each agent uses.",26:"I depend on governed data quality so agents understand and serve customers.",27:"I rely on standardized customer data for a consistent agent experience across channels."},
+ entarch:{1:"I align agent 'Digital Job Descriptions' and autonomy boundaries with enterprise strategy.",2:"I architect Session Tracing and observability as first-class transparency.",3:"I make Data 360 / the Context Graph the architected source of agent context.",4:"I architect event-driven marketing-agent patterns and AXL rendering at scale.",5:"I architect Agentforce Revenue Management into the Quote-to-Cash flow.",6:"I architect inline service resolution and context-preserving escalation.",7:"I provide composable, MCP-connected building blocks for multi-model innovation.",8:"I provide reference architectures and sandboxes for safe agent experimentation.",9:"I turn architecture into new business capability and Time-Compression value.",10:"I align architecture talent to bridge the Builder Gap on critical agent design.",11:"I weigh agent design against total cost of ownership and Cost per Decision.",12:"I align the technical roadmap to be API-first and Agentic-Opportunity-driven.",13:"I embed change control — Git, kill switches, Evals — into the agent architecture.",14:"I design for adoption so well-architected agents are actually used.",15:"I architect for agentic delivery (DevOps Center MCP, Agent Velocity).",16:"I define event-driven, reasoning-based workflows with idempotency as artifacts.",17:"I drive MCP standardization (N×M→M+N) and Headless 360 simplification.",18:"I own maintainability via Agent Script blueprints and contract testing.",19:"I design ForcedLeak/prompt-injection defense and boundary redaction in.",20:"I architect non-human identities, least-privilege, OAuth 2.1+PKCE at the API layer.",21:"I architect reasoning resilience — MCP availability, rollback, response caching.",22:"I enable natural-language CD through modular, decoupled agent architecture.",23:"I design for Custom Scoring Evals, regression, and OpenTelemetry observability.",24:"I raise agent design maturity and preserve AI-free architectural reasoning.",25:"I own the Zero-Copy Data 360 + MCP integration architecture.",26:"I architect data quality so agents are grounded and don't hallucinate.",27:"I own the semantic layer, agent naming standards, and versioned contracts."}
+});
+Object.assign(ROLE_STATEMENTS,{
+ developer:{1:"I can build agents whose 'Digital Job Description' encodes authorized actions and escalation triggers.",2:"I can instrument Session Tracing so an agent's actions and reasoning are auditable.",3:"I can ground agents in Data 360 so they use full customer context.",4:"I can build event-driven marketing agents and render AXL cards across surfaces.",5:"I can build an Agentforce agent governing the Quote-to-Cash lifecycle via Data 360.",6:"I can build a service agent that resolves inline in Slack/WhatsApp and escalates with context.",7:"I can connect third-party agents via MCP and reuse skills from a catalog.",8:"I can build read-only agent prototypes and spike logic for rubric-scored pilots.",9:"I can build agent features that create measurable Time-Compression value.",10:"I understand how my build work fits Agentic Strategist team roles.",11:"I build with token cost in mind — efficient prompts and tier-appropriate models.",12:"I build API-first against the agent roadmap, read-only before write-access.",13:"I version agent logic in Git with kill switches and pass Custom Scoring Evals before prod.",14:"I build agents into the Slack Agentic Front Door so they get adopted.",15:"I work in agentic delivery using DevOps Center MCP.",16:"I implement event-driven (CDC/Platform Events) agent workflows with idempotency.",17:"I build one MCP server per system to solve the N×M integration problem.",18:"I write maintainable Agent Script blueprints with contract testing.",19:"I build agents that resist prompt-injection/ForcedLeak and redact sensitive fields.",20:"I implement non-human identities, least-privilege, and OAuth 2.1+PKCE for agents.",21:"I build resilient agents handling MCP latency, rollback, and response caching.",22:"I deliver small, well-tested agent increments via natural-language CD.",23:"I write Custom Scoring Evals and pipe agent traces via OpenTelemetry.",24:"I keep building agentic skills and preserve AI-free fundamentals.",25:"I build Zero-Copy Data 360 + MCP integrations between systems.",26:"I build with data quality so agents are grounded and don't hallucinate.",27:"I follow agent naming standards, the semantic layer, and versioned contracts."},
+ architect:{1:"I design agent 'Digital Job Descriptions' with autonomy boundaries tied to KPIs.",2:"I design Session Tracing and observability into the solution.",3:"I design Data 360 grounding so agents act on full context.",4:"I design event-driven marketing-agent patterns and AXL rendering.",5:"I design Agentforce Revenue Management into the Quote-to-Cash flow.",6:"I design inline service resolution with context-preserving escalation.",7:"I design MCP-connected, multi-model agent orchestration.",8:"I design read-only pilots and eval rubrics for safe experimentation.",9:"I design solutions that deliver Time-Compression value.",10:"I help align technical talent to critical agent design work.",11:"I weigh agent design against Cost per Decision and TCO.",12:"I design API-first, Agentic-Opportunity-prioritized roadmaps.",13:"I design agent change control — Git, kill switches, Evals — in.",14:"I design agents for adoption via the Agentic Front Door.",15:"I shape architecture for agentic delivery (DevOps Center MCP).",16:"I design event-driven, reasoning-based workflows with idempotency.",17:"I design MCP standardization and Headless 360 simplification.",18:"I design maintainable Agent Script blueprints and contract testing.",19:"I design ForcedLeak/prompt-injection defense and redaction.",20:"I design non-human identities, least-privilege, OAuth 2.1+PKCE at the API layer.",21:"I design reasoning resilience — MCP availability, rollback, caching.",22:"I enable natural-language CD via modular agent design.",23:"I design for Custom Scoring Evals and OpenTelemetry observability.",24:"I mentor on agent design and keep AI-free architectural skills sharp.",25:"I own Zero-Copy Data 360 + MCP integration design.",26:"I design data quality so agents stay grounded.",27:"I define the semantic layer, naming standards, and versioned contracts."},
+ projmgr:{1:"I plan delivery around agent 'Digital Job Descriptions' and KPI-linked outcomes.",2:"I keep agent delivery transparent using Session-Tracing outputs.",3:"I prioritize Data 360–grounded agent work that proves ROI.",4:"I plan delivery of event-driven marketing-agent capabilities.",5:"I plan delivery of Agentforce Revenue Management (Quote-to-Cash).",6:"I plan delivery of inline service-agent resolution.",7:"I create space for multi-model/MCP agent ideation.",8:"I build read-only pilots and 4-week PoVs into the plan.",9:"I steer delivery to create Time-Compression value by Day 180.",10:"I resource the Builder Gap — staffing Agentic Strategist roles.",11:"I track agent FinOps (Cost per Decision) against the budget.",12:"I manage an API-first roadmap, read-only before write-access.",13:"I ensure agent change control — Git, kill switches, Evals — in delivery.",14:"I plan adoption via the Agentic Front Door into every release.",15:"I run agentic delivery with DevOps Center MCP and Agent Velocity.",16:"I ensure event-driven agent workflows are documented with idempotency.",17:"I push MCP standardization to simplify integration scope.",18:"I plan maintainability (Agent Script, contract testing) into delivery.",19:"I manage agent risks — ForcedLeak, Shadow AI — with mitigations.",20:"I ensure non-human identity and access requirements are delivered.",21:"I plan reasoning resilience and rollback into delivery.",22:"I plan incremental, natural-language CD over big-bang agent releases.",23:"I build Custom Scoring Evals and observability into the plan.",24:"I support agentic reskilling through the project.",25:"I coordinate Zero-Copy Data 360 + MCP integration work.",26:"I keep data quality and org health on the delivery agenda.",27:"I ensure agent naming standards and contracts are followed."},
+ pm:{1:"I set product goals around agent 'Digital Job Descriptions' and KPI outcomes.",2:"I keep agent roadmap and Session-Tracing insights transparent.",3:"I prioritize Data 360–grounded agent capabilities by ROI.",4:"I represent event-driven marketing-agent needs in the product.",5:"I represent Agentforce Revenue Management (Quote-to-Cash) needs.",6:"I represent inline service-agent resolution needs.",7:"I drive multi-model/MCP agent ideation for the backlog.",8:"I use read-only pilots and rubrics to validate what to build.",9:"I prioritize agent capabilities that deliver Time-Compression value.",10:"I align the team to Agentic Strategist ways of working.",11:"I make agent trade-offs with Cost per Decision in mind.",12:"I own an API-first roadmap prioritized by Agentic Opportunity.",13:"I ensure agent changes ship safely with kill switches and Evals.",14:"I drive adoption of agents via the Agentic Front Door.",15:"I deliver product value through agentic, iterative delivery.",16:"I map reasoning-vs-rules agent flows to design the product.",17:"I keep the product simple via MCP standardization.",18:"I weigh maintainability and Agent Script debt in decisions.",19:"I manage agent risks (ForcedLeak) and dependencies.",20:"I account for non-human identity and access in the product.",21:"I factor reasoning resilience into the product.",22:"I favor incremental agent releases that learn and adjust.",23:"I build Custom Scoring Evals expectations into the product.",24:"I grow agentic product skills and preserve AI-free judgment.",25:"I prioritize Zero-Copy Data 360 + MCP integrations.",26:"I treat governed data quality as an agent product requirement.",27:"I push agent naming standards and versioned contracts."},
+ ba:{1:"I translate goals into agent 'Digital Job Descriptions' and KPI-linked requirements.",2:"I specify Session-Tracing and observability requirements.",3:"I specify Data 360 grounding so agents use full context.",4:"I gather requirements for event-driven marketing agents and AXL.",5:"I gather requirements for Agentforce Revenue Management (Quote-to-Cash).",6:"I gather requirements for inline service-agent resolution.",7:"I facilitate multi-model/MCP agent ideation.",8:"I frame hypotheses and rubrics for read-only agent pilots.",9:"I shape agent solutions that create Time-Compression value.",10:"I map requirements to Agentic Strategist roles and tasks.",11:"I capture how scope affects agent Cost per Decision.",12:"I shape an API-first roadmap with requirements.",13:"I document agent changes flowing through Git change control and Evals.",14:"I drive adoption through clear requirements and Agentic-Front-Door UAT.",15:"I write agentic stories and refine the backlog.",16:"I document event-driven, reasoning-based agent workflows with idempotency.",17:"I simplify requirements toward MCP standardization.",18:"I write requirements that keep agents maintainable (Agent Script).",19:"I surface agent risks (ForcedLeak) and gaps early.",20:"I capture non-human identity and access requirements correctly.",21:"I capture reasoning-resilience and continuity requirements.",22:"I support incremental, natural-language CD with scoped requirements.",23:"I define Custom Scoring Eval acceptance criteria and support UAT.",24:"I keep developing agentic analysis skills and AI-free reasoning.",25:"I document Zero-Copy Data 360 + MCP integration requirements.",26:"I specify and validate data-quality requirements for grounding.",27:"I define agent naming standards and contract requirements."},
+ tester:{1:"I test that agents honor their 'Digital Job Description' and escalation boundaries.",2:"I validate Session Tracing captures what agents did and why.",3:"I test that agents are correctly grounded in Data 360 context.",4:"I test event-driven marketing agents and AXL rendering.",5:"I test Agentforce Revenue Management (Quote-to-Cash) agents.",6:"I test inline service resolution and context-preserving escalation.",7:"I help validate multi-model/MCP agent integrations.",8:"I validate read-only pilots against the outcome rubric.",9:"I verify agents deliver the intended Time-Compression value.",10:"I understand how QA fits Agentic Strategist team roles.",11:"I test within token/cost and timeline constraints.",12:"I align test planning with the API-first roadmap.",13:"I verify agents pass Custom Scoring Evals and kill-switch checks before prod.",14:"I test agent usability in the Agentic Front Door for adoption.",15:"I test continuously within agentic delivery sprints.",16:"I test event-driven agent workflows for idempotency.",17:"I push simpler, MCP-standardized designs that are easier to test.",18:"I test Agent Script maintainability and flag fragile logic.",19:"I test agents against prompt-injection/ForcedLeak and data exfiltration.",20:"I test non-human identity, least-privilege, and API-layer access.",21:"I test reasoning resilience, failover, and rollback.",22:"I validate small, incremental agent changes thoroughly.",23:"I build Custom Scoring Evals and regression suites; I check observability.",24:"I keep growing agentic testing skills and AI-free fundamentals.",25:"I test Zero-Copy Data 360 + MCP integrations.",26:"I test and validate the data quality agents are grounded in.",27:"I test agent naming standards and contract conformance."},
+ admin:{1:"I configure agents with the right 'Digital Job Description' and escalation settings.",2:"I enable Session Tracing so agent activity is auditable.",3:"I configure Data 360 grounding so agents use full context.",4:"I configure event-driven marketing agents and AXL surfaces.",5:"I configure Agentforce Revenue Management (Quote-to-Cash) agents.",6:"I configure inline service agents with context-preserving escalation.",7:"I support multi-model/MCP agent connections.",8:"I provision sandboxes for read-only agent pilots.",9:"I configure agent capabilities that create value.",10:"I align users and agent roles to the right tasks and access.",11:"I manage agent licensing/credits with cost in mind.",12:"I deliver configuration on the API-first roadmap, read-only first.",13:"I move agent changes to prod via change control, kill switches, and Evals.",14:"I drive adoption configuring the Agentic Front Door.",15:"I support agentic delivery with timely admin work.",16:"I document event-driven agent workflows and config.",17:"I simplify config via MCP standardization.",18:"I keep the org maintainable and avoid agent config debt.",19:"I configure ForcedLeak defenses, redaction, and a Shadow-AI registry.",20:"I own non-human identities, least-privilege profiles, and OAuth 2.1+PKCE.",21:"I configure reasoning resilience — backups, kill switches, rollback.",22:"I make small, controlled agent config changes via CD.",23:"I test config and set up Custom Scoring Evals and observability.",24:"I keep advancing agentic admin skills and certifications.",25:"I configure and monitor Zero-Copy Data 360 + MCP integrations.",26:"I maintain data quality so agents stay grounded.",27:"I enforce agent naming standards and the semantic layer."},
+ superuser:{1:"I help my team understand each agent's job and escalation boundaries.",2:"I use Session-Tracing views to keep agent use transparent.",3:"I make sure agents use the full Data 360 customer context we rely on.",4:"I understand how we use marketing agents and AXL surfaces.",5:"I understand how we use revenue agents across Quote-to-Cash.",6:"I understand how we use service agents for inline resolution.",7:"I surface front-line ideas for new agent skills.",8:"I'm willing to trial new agents in read-only pilots.",9:"I help create value by getting the most from agents day to day.",10:"I help colleagues take on Agentic Strategist ways of working.",11:"I understand how agent usage relates to cost.",12:"I give feedback that shapes the agent roadmap.",13:"I understand how agent changes are rolled out safely and help my team.",14:"I champion agent adoption via the Slack Agentic Front Door.",15:"I work well within agentic delivery and feedback cycles.",16:"I know our agent processes and follow event-driven workflows.",17:"I push for simpler, MCP-standardized ways of working.",18:"I report agent issues clearly so the system stays healthy.",19:"I follow safe practices that limit prompt-injection/data risks.",20:"I respect agent access and data-security rules and help others.",21:"I know the fallbacks that keep us working during agent outages.",22:"I adapt quickly to small, frequent agent changes.",23:"I help validate new agents before they go live.",24:"I keep building my agent skills and coach peers; I keep AI-free fundamentals.",25:"I understand how our agents connect to other systems via integration.",26:"I keep our data clean so agents stay grounded.",27:"I follow agent naming standards and avoid inconsistent data."},
+ trainer:{1:"I train teams on each agent's 'Digital Job Description' and escalation rules.",2:"I teach how to read Session Tracing to trust and audit agents.",3:"I teach how agents use Data 360 context.",4:"I train users on marketing agents and AXL surfaces.",5:"I train users on revenue agents across Quote-to-Cash.",6:"I train users on inline service agents and escalation.",7:"I bring ideas for enabling multi-model/MCP agent use.",8:"I pilot new training around read-only agent pilots.",9:"I create value by turning agent training into capability.",10:"I match training to Agentic Strategist roles, bridging the Builder Gap.",11:"I plan training within cost and time constraints.",12:"I align training with the API-first roadmap so people are ready.",13:"I prepare users before agent changes reach production.",14:"I drive agent adoption via the Agentic Front Door — my core focus.",15:"I support agentic delivery with just-in-time enablement.",16:"I teach the event-driven processes behind our agents.",17:"I keep agent training simple and clear.",18:"I keep agent training materials current and maintainable.",19:"I teach safe practices against prompt-injection/ForcedLeak.",20:"I teach agent access and data-security practices.",21:"I prepare users to keep working through agent disruptions.",22:"I roll out enablement in small, frequent increments.",23:"I help validate agents by training and testing alongside QA.",24:"I develop talent — agentic skills plus AI-free critical thinking.",25:"I help users understand the connected, integrated agent systems.",26:"I train users to maintain the data quality agents depend on.",27:"I teach agent naming standards so data stays consistent."}
+});
+Object.assign(ROLE_STATEMENTS,{
+ salesldr:{1:"I set revenue-agent jobs and tie them to my team's targets.",2:"I keep pipeline transparent using agent Session-Tracing outputs.",3:"I ensure selling agents use full Data 360 customer context.",4:"I understand how marketing agents feed the pipeline I manage.",5:"I run the sales motion with Agentforce Revenue Management agents (Quote-to-Cash).",6:"I understand how service agents affect the accounts my team sells.",7:"I bring field ideas for new agent-powered selling plays.",8:"I test new agent plays via read-only pilots and scale what works.",9:"I drive value by turning selling agents into more closed revenue.",10:"I reskill reps to supervise selling agents (Agentic Strategist).",11:"I manage agent economics against targets and return.",12:"I push for the revenue-agent capabilities my team needs on the roadmap.",13:"I rely on safe agent change control to keep selling systems stable.",14:"I drive my team's adoption of agents via the Slack Front Door.",15:"I value agentic delivery for faster selling capabilities.",16:"I map the sales process for agent reasoning to lift conversion.",17:"I simplify the selling stack via MCP so agents plug in fast.",18:"I depend on maintainable agents so the team keeps selling.",19:"I manage agent risks (ForcedLeak, data exposure) to deals and trust.",20:"I expect scoped agent access that protects customer data.",21:"I count on reasoning resilience so selling continues through disruption.",22:"I prefer steady incremental agent changes over disruptive ones.",23:"I rely on Custom Scoring Evals so selling agents and data stay trustworthy.",24:"I coach my team to supervise and sell alongside agents.",25:"I rely on Zero-Copy Data 360 for a full account view agents use.",26:"I depend on governed data for accurate agent forecasting.",27:"I rely on standardized customer data across selling agents."},
+ salesops:{1:"I translate sales goals into agent jobs, process, and KPIs.",2:"I keep pipeline data and agent metrics transparent via Session Tracing.",3:"I ground selling agents in Data 360 context.",4:"I align marketing and sales agents and lead handoffs.",5:"I own and optimize Agentforce Revenue Management (Quote-to-Cash) agents.",6:"I align sales-to-service agent handoffs.",7:"I bring ideas to improve agent-powered sales processes.",8:"I test agent process changes via read-only pilots before scaling.",9:"I create value by making the agent-run sales motion more efficient.",10:"I align sales resources to supervise selling agents.",11:"I manage agent tooling spend — Cost per Decision and routing.",12:"I feed sales-agent requirements into the API-first roadmap.",13:"I manage controlled agent changes — kill switches and Evals.",14:"I drive rep adoption of agents via the Agentic Front Door.",15:"I support agentic delivery of sales-ops capabilities.",16:"I map and standardize event-driven sales-agent processes.",17:"I simplify the sales stack via MCP standardization.",18:"I keep selling agents maintainable and clean.",19:"I manage agent risks in sales data and forecasting (ForcedLeak).",20:"I manage non-human identities and access for the sales org.",21:"I plan reasoning resilience for the agent sales motion.",22:"I roll out sales-agent changes incrementally via CD.",23:"I build Custom Scoring Evals and observability for sales agents.",24:"I upskill the team to supervise selling agents.",25:"I own Zero-Copy Data 360 + MCP integration of sales data.",26:"I own data quality and hygiene that grounds selling agents.",27:"I enforce agent naming standards across the sales org."},
+ salesrep:{1:"I understand the agent's job in my deals and when it escalates to me.",2:"I use Session Tracing to see what my selling agent did.",3:"I rely on agents grounded in full Data 360 account context.",4:"I act on the leads marketing agents generate for me.",5:"I use revenue agents across my Quote-to-Cash to sell faster.",6:"I understand how service agents affect my accounts.",7:"I share field ideas for better agent selling plays.",8:"I'm willing to trial new selling agents.",9:"I create value using agents to win and grow accounts.",10:"I'm learning to supervise selling agents, not just do data entry.",11:"I understand how agent and deal economics affect the business.",12:"I give input on the agent capabilities I need to sell better.",13:"I adapt to safe changes in the agents I use daily.",14:"I adopt selling agents fully via the Slack Front Door.",15:"I work with the team's agentic delivery cadence.",16:"I follow the agent-supported sales process and keep records clean.",17:"I prefer simple agents that let me sell, not do admin.",18:"I keep my records clean so agents stay reliable.",19:"I follow safe practices so agent/customer data isn't exposed.",20:"I handle customer data responsibly within agent access rules.",21:"I know how to keep selling if agents are down.",22:"I adapt to small, frequent agent improvements.",23:"I report issues in the selling agents I rely on.",24:"I keep building skills to sell alongside agents; I keep core fundamentals.",25:"I rely on integrated Data 360 for a full account view.",26:"I keep my account data clean so agents stay grounded.",27:"I follow data-entry and agent naming standards, avoiding duplicates."},
+ csmgr:{1:"I set service-agent jobs and tie them to SLAs and outcomes.",2:"I keep service performance transparent via agent Session Tracing.",3:"I ensure service agents use full Data 360 customer context.",4:"I understand how marketing agents shape the customers we support.",5:"I understand how sales-agent handoffs affect our cases.",6:"I run the service motion with inline agents (Slack/WhatsApp) and escalation.",7:"I bring front-line ideas for better service agents.",8:"I trial new service agents via read-only pilots and scale what works.",9:"I create value by turning agents into faster, better service.",10:"I reskill staff to supervise service agents.",11:"I manage service-agent economics against budget and SLAs.",12:"I push for the service-agent capabilities my team needs.",13:"I rely on safe agent change control for service systems.",14:"I drive my team's adoption of agents via the Front Door.",15:"I value agentic delivery for faster service capabilities.",16:"I map service processes for agent reasoning to cut handle time.",17:"I simplify service workflows via MCP so agents help, not hinder.",18:"I depend on maintainable agents so service stays consistent.",19:"I manage agent risks (ForcedLeak) to service quality and trust.",20:"I expect scoped agent access protecting customer data.",21:"I count on reasoning resilience so customers are served through disruption.",22:"I prefer steady incremental agent changes.",23:"I rely on Custom Scoring Evals so service agents and data stay reliable.",24:"I coach my team to supervise service agents.",25:"I rely on Zero-Copy Data 360 for a full customer view agents use.",26:"I depend on governed data to resolve issues and spot trends.",27:"I rely on standardized customer data across service agents."},
+ svcagent:{1:"I understand my service agent's job and when it escalates to me.",2:"I use Session Tracing to see what the agent did on a case.",3:"I rely on agents grounded in full Data 360 customer history.",4:"I understand how marketing agents shape what customers expect.",5:"I understand how sales-agent commitments affect my cases.",6:"I use inline agents (Slack/WhatsApp) to resolve cases, escalating with context.",7:"I share ideas from cases to improve service agents.",8:"I'm willing to try new service agents and tools.",9:"I create value resolving issues well with agents.",10:"I'm learning to supervise service agents.",11:"I understand how my efficiency affects cost-to-serve.",12:"I give input on the service-agent features I need.",13:"I adapt to safe changes in the agents I use daily.",14:"I adopt service agents fully via the Front Door.",15:"I work with the team's agentic delivery cadence.",16:"I follow agent-supported service processes and keep records clean.",17:"I prefer simple agents that let me focus on the customer.",18:"I keep records clean so agents stay reliable.",19:"I follow safe practices so agent/customer data isn't exposed.",20:"I handle customer data responsibly within agent access rules.",21:"I know how to keep serving if agents are down.",22:"I adapt to small, frequent agent improvements.",23:"I report issues in the service agents I rely on.",24:"I keep building skills to serve alongside agents.",25:"I rely on integrated Data 360 for a full customer view.",26:"I keep case data accurate so agents stay grounded.",27:"I follow data-entry and agent naming standards, avoiding duplicates."},
+ mktgmgr:{1:"I set marketing-agent jobs tied to campaign and growth KPIs.",2:"I keep campaign performance transparent via agent Session Tracing.",3:"I ground marketing agents in Data 360 customer context.",4:"I run event-driven marketing agents and AXL across surfaces.",5:"I align campaign agents with revenue agents so leads convert.",6:"I use service-agent insight to shape messaging.",7:"I drive ideation for new agent-powered campaigns.",8:"I run agent A/B experiments and read-only pilots.",9:"I create value through agent campaigns that grow customers.",10:"I reskill marketers to orchestrate marketing agents.",11:"I manage campaign-agent spend for return.",12:"I push for the marketing-agent capabilities I need.",13:"I rely on safe agent change control for journeys.",14:"I drive team adoption of agents via the Front Door.",15:"I value agentic delivery for faster campaigns.",16:"I map the funnel for agent reasoning to cut friction.",17:"I simplify the martech stack via MCP.",18:"I depend on maintainable agents so campaigns run.",19:"I manage agent risks to campaigns, data, and brand (ForcedLeak).",20:"I expect scoped agent access and consent controls.",21:"I count on reasoning resilience for marketing ops.",22:"I prefer incremental agent improvements.",23:"I rely on Custom Scoring Evals so agent journeys stay reliable.",24:"I develop data-fluent marketers to supervise agents.",25:"I rely on Zero-Copy Data 360 for a unified customer view.",26:"I depend on governed data for agent targeting and attribution.",27:"I rely on standardized data so agents segment cleanly."},
+ mktgops:{1:"I translate marketing goals into agent jobs, martech, and KPIs.",2:"I keep marketing data and agent metrics transparent via Session Tracing.",3:"I ground marketing agents in Data 360 context.",4:"I own event-driven marketing-agent automation and AXL.",5:"I align marketing and sales agents so leads flow and convert.",6:"I connect service-agent signals into marketing data.",7:"I bring ideas to improve agent-powered marketing processes.",8:"I build and run the agent experiments marketing relies on.",9:"I create value making the agent marketing engine efficient.",10:"I align marketing-ops to supervise marketing agents.",11:"I manage martech-agent spend (Cost per Decision).",12:"I feed marketing-agent requirements into the API-first roadmap.",13:"I manage controlled agent changes — kill switches and Evals.",14:"I drive adoption of agents/martech via the Front Door.",15:"I support agentic delivery of marketing-ops capabilities.",16:"I map and standardize event-driven agent journeys with idempotency.",17:"I simplify the martech stack via MCP standardization.",18:"I keep marketing agents maintainable and clean.",19:"I manage agent risks in marketing data, consent, and compliance (ForcedLeak).",20:"I manage non-human identities and consent-aware access.",21:"I plan reasoning resilience for marketing ops.",22:"I roll out marketing-agent changes incrementally via CD.",23:"I build Custom Scoring Evals and observability for journeys.",24:"I upskill marketing on agent tools and data.",25:"I own Zero-Copy Data 360 + MCP integration of marketing data.",26:"I own data quality and hygiene grounding marketing agents.",27:"I enforce agent naming standards and segmentation models."}
+});
+function statementFor(it,roleKey){const rs=ROLE_STATEMENTS[roleKey];return (rs&&rs[it.id])?rs[it.id]:it.q;}
+const BANDS=[
+ {min:0,max:20,name:"Legacy Operator",color:"#e0533d",msg:"You're operating the System of Record. The agentic shift is the single biggest opportunity in front of you."},
+ {min:21,max:40,name:"In Transition",color:"#e07c3d",msg:"You sense the ground moving. Building the agentic foundations now puts you ahead of most practitioners."},
+ {min:41,max:60,name:"Agentic-Aware",color:"#e8a317",msg:"You know the concepts and can apply with help. Structured depth turns awareness into capability."},
+ {min:61,max:80,name:"Agentic Practitioner",color:"#46a06b",msg:"You build and govern agents independently. A focused push takes you to CoE leadership."},
+ {min:81,max:100,name:"Agentic CoE Leader",color:"#1faa59",msg:"You set the standard and supervise systems. You're positioned to lead and mentor the field."}
+];
+const SHEET_ENDPOINT="https://script.google.com/macros/s/AKfycby24O6aAEN7kuNizcTFsTC4lIFaQYgV-vOIrPf0GD-XhYVnHImC1a6NtkkxWOxNeM3BRA/exec";
+
+/* ============ STATE ============ */
+const answers={}; // id/markerId -> 0..4
+let PAGES=[], curPage=0, LEAD=null, roleKey="developer";
+const TOTAL=FUNCTIONS.length+MARKERS.length; // 37
+const FBYID=Object.fromEntries(FUNCTIONS.map(f=>[f.id,f]));
+const FLAGS={}, QMETA={}; // per-question pilot flags + metadata
+function toggleFlag(id){
+  FLAGS[id]=!FLAGS[id];
+  const btn=document.getElementById('fb_'+id), reason=document.getElementById('fr_'+id), row=document.getElementById('qrow_'+id);
+  btn.classList.toggle('on',FLAGS[id]);
+  btn.innerHTML=FLAGS[id]?"&#128681; Flagged":"&#128681; Flag this question";
+  reason.style.display=FLAGS[id]?"block":"none";
+  if(row) row.classList.toggle('flagged',FLAGS[id]);
+}
+const RATE={rel:0,clr:0};
+function setRate(key,n,btn){RATE[key]=n;[...btn.parentNode.children].forEach((b,i)=>b.classList.toggle('sel',i<n));}
+function populateFbFlags(){
+  const el=document.getElementById('fbFlags'); if(!el)return;
+  const ids=Object.keys(FLAGS).filter(k=>FLAGS[k]);
+  if(!ids.length){el.innerHTML='<span class="lead">No questions flagged during the assessment. If something felt off, note it above.</span>';return;}
+  el.innerHTML='<div style="font-weight:600;margin-bottom:4px">You flagged '+ids.length+' question(s):</div>'+ids.map(id=>{const m=QMETA[id]||{};const r=(document.getElementById('fr_'+id)||{value:''}).value;return '<div class="fitem">&#128681; '+(m.label||id)+(r?' — <em>'+r+'</em>':'')+'</div>';}).join('');
+}
+function submitFeedback(){
+  const ids=Object.keys(FLAGS).filter(k=>FLAGS[k]);
+  const flagged=ids.map(id=>{const m=QMETA[id]||{};const r=(document.getElementById('fr_'+id)||{value:''}).value;return (m.label||id)+(r?(': '+r):'');});
+  sendToSheet({stage:"feedback",assessment:"True Knowledge Index",
+    name:(LEAD&&LEAD.name)||'',email:(LEAD&&LEAD.email)||'',role:(LEAD&&LEAD.role)||roleByKey(roleKey).label,
+    platform:(LEAD&&LEAD.platform)||'',category:(LEAD&&LEAD.category)||'',
+    relevance:RATE.rel,clarity:RATE.clr,
+    wrong:document.getElementById('fbWrong').value.trim(),
+    missing:document.getElementById('fbMissing').value.trim(),
+    other:document.getElementById('fbOther').value.trim(),
+    followUp:document.getElementById('fbFollow').checked?'Yes':'No',
+    flaggedCount:ids.length,flagged:flagged.join(' | '),
+    date:new Date().toISOString()});
+  document.getElementById('fbcard').innerHTML='<h3>Thank you &#128591;</h3><p class="lead" style="margin:0">Your feedback was submitted — it directly shapes the final assessment. We appreciate you piloting this.</p>';
+}
+function buildCategorySelect(){document.getElementById('catSelect').innerHTML=CATEGORIES.map(c=>`<option value="${c.key}">${c.label}</option>`).join('');}
+function onCategoryChange(){const cat=categoryByKey(document.getElementById('catSelect').value);document.getElementById('roleSelect').innerHTML=cat.roles.map(k=>{const r=roleByKey(k);return `<option value="${r.key}">${r.label}</option>`;}).join('');onRoleChange();}
+function onRoleChange(){roleKey=document.getElementById('roleSelect').value||roleKey;}
+function bandFor(p){return BANDS.find(b=>p>=b.min&&p<=b.max)||BANDS[0];}
+function colorFor(p){return bandFor(p).color;}
+
+/* ============ BUILD PAGES ============ */
+function buildQuiz(){
+  PAGES=[];
+  Object.keys(DOMAINS).forEach(dom=>{
+    const items=FUNCTIONS.filter(f=>f.d===dom);
+    [...new Set(items.map(i=>i.c))].forEach(cap=>{
+      PAGES.push({title:cap,sub:dom,color:DOMAINS[dom].color,items:items.filter(i=>i.c===cap).map(i=>({id:i.id,q:i.q,def:i.f}))});
+    });
+  });
+  // 2 frontier pages of 5
+  PAGES.push({title:"Frontier Currency · 1 of 2",sub:"The agentic shift",color:"#7a5af5",items:MARKERS.slice(0,5).map(m=>({id:m.id,q:m.q,def:m.label}))});
+  PAGES.push({title:"Frontier Currency · 2 of 2",sub:"The agentic shift",color:"#7a5af5",items:MARKERS.slice(5).map(m=>({id:m.id,q:m.q,def:m.label}))});
+  let html="";
+  PAGES.forEach((pg,pi)=>{
+    html+=`<div class="cap-page" data-page="${pi}"><div class="page-head"><span class="dot" style="background:${pg.color}"></span><h3>${pg.title}</h3><span class="sub">${pg.sub}</span></div><div class="cap">`;
+    pg.items.forEach(it=>{
+      const text=(typeof it.id==='number')?statementFor(FBYID[it.id],roleKey):it.q;
+      QMETA[it.id]={text,label:it.def};
+      html+=`<div class="q" id="qrow_${it.id}"><p class="stmt">${text}</p><p class="def">${it.def}</p><div class="opts">`;
+      SCALE.forEach(sc=>{html+=`<label data-v="${sc.v}"><input type="radio" name="q${it.id}" value="${sc.v}" onchange="answer('${it.id}',${sc.v})"><span class="pill">${sc.t}<small>${sc.s}</small></span></label>`;});
+      html+=`</div><div class="flagrow"><button type="button" class="flagbtn" id="fb_${it.id}" onclick="toggleFlag('${it.id}')">&#128681; Flag this question</button><input type="text" class="flagreason" id="fr_${it.id}" placeholder="Irrelevant, wrong, or unclear? Tell us (optional)" style="display:none"></div></div>`;
+    });
+    html+=`</div></div>`;
+  });
+  document.getElementById('quizPages').innerHTML=html;
+}
+
+/* ============ PAGINATION ============ */
+function pageComplete(i){return PAGES[i].items.every(it=>typeof answers[it.id]==='number');}
+function updateNav(){
+  const last=curPage===PAGES.length-1, ok=pageComplete(curPage);
+  document.getElementById('nextBtn').disabled=!ok;
+  const total=PAGES[curPage].items.length, done=PAGES[curPage].items.filter(it=>typeof answers[it.id]==='number').length;
+  document.getElementById('pageHint').textContent=ok?(last?"All set — see your results.":""):`${done} of ${total} answered on this screen`;
+}
+function showPage(i){
+  curPage=Math.max(0,Math.min(i,PAGES.length-1));
+  document.querySelectorAll('.cap-page').forEach((el,idx)=>el.classList.toggle('active',idx===curPage));
+  document.getElementById('pageLabel').textContent=`Section ${curPage+1} of ${PAGES.length}`;
+  document.getElementById('roleTagQ').textContent="Tailored for: "+roleByKey(roleKey).label;
+  const done=Object.keys(answers).length;
+  document.getElementById('pdone').textContent=done;
+  document.getElementById('pbarFill').style.width=(done/TOTAL*100)+"%";
+  document.getElementById('backBtn').disabled=curPage===0;
+  document.getElementById('nextBtn').innerHTML=(curPage===PAGES.length-1)?"See my results &rarr;":"Next &rarr;";
+  updateNav();
+  document.getElementById('quizScreen').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function nextPage(){if(!pageComplete(curPage))return;if(curPage===PAGES.length-1){showResults();return;}showPage(curPage+1);}
+function prevPage(){if(curPage>0)showPage(curPage-1);}
+function answer(id,v){answers[id]=v;const done=Object.keys(answers).length;document.getElementById('pdone').textContent=done;document.getElementById('pbarFill').style.width=(done/TOTAL*100)+"%";updateNav();}
+
+/* ============ LEAD ============ */
+function sendToSheet(p){if(!SHEET_ENDPOINT)return;try{fetch(SHEET_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p)});}catch(e){}}
+function validateAndStart(){
+  const g=id=>document.getElementById(id).value.trim();
+  const first=g('lfFirst'),last=g('lfLast'),email=g('lfEmail'),phone=g('lfPhone'),company=g('lfCompany'),roleT=g('lfRole'),location=g('lfLocation'),challenge=g('lfChallenge'),plan=g('lfPlan'),platform=g('lfPlatform');
+  const consent=document.getElementById('lfConsent').checked, err=document.getElementById('lfErr');
+  if(!first||!last){err.textContent="Please enter your first and last name.";return;}
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent="Please enter a valid email address.";return;}
+  if(!company){err.textContent="Please enter your company.";return;}
+  if(!platform){err.textContent="Please select your technology platform.";return;}
+  if(!challenge){err.textContent="Please share your career challenge in the AI era.";return;}
+  if(!plan){err.textContent="Please share how you plan to keep up with AI disruption.";return;}
+  err.textContent="";
+  onRoleChange();
+  const roleLabel=roleByKey(roleKey).label;
+  LEAD={first,last,name:(first+" "+last).trim(),email,phone,company,platform,role:roleLabel,title:roleT,roleSelected:roleLabel,category:categoryByKey(document.getElementById('catSelect').value).label,location,challenge,plan,consent};
+  sendToSheet({stage:"lead",assessment:"True Knowledge Index",...LEAD,date:new Date().toISOString()});
+  buildQuiz(); // rebuild with the chosen role's wording
+  document.getElementById('intro').style.display='none';
+  document.getElementById('quizScreen').style.display='block';
+  curPage=0;showPage(0);
+}
+
+/* ============ SCORING ============ */
+function radar(caps){
+  const cx=230,cy=195,R=135,N=caps.length,ang=i=>(-90+i*(360/N))*Math.PI/180,pt=(i,r)=>[cx+r*Math.cos(ang(i)),cy+r*Math.sin(ang(i))];
+  let s="";[0.25,0.5,0.75,1].forEach(f=>{s+=`<polygon points="${caps.map((_,i)=>pt(i,R*f).map(n=>n.toFixed(1)).join(",")).join(" ")}" fill="none" stroke="#e3e9f2" stroke-width="1"/>`;});
+  caps.forEach((c,i)=>{const[x,y]=pt(i,R),[lx,ly]=pt(i,R+15),a=lx>cx+6?"start":(lx<cx-6?"end":"middle");
+    s+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#e3e9f2" stroke-width="1"/>`;
+    s+=`<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" font-size="9.5" font-weight="600" fill="#5d6b82" text-anchor="${a}" dominant-baseline="middle">${c.cap}</text>`;
+    s+=`<text x="${lx.toFixed(1)}" y="${(ly+11).toFixed(1)}" font-size="9" fill="${colorFor(c.pct)}" text-anchor="${a}" dominant-baseline="middle">${c.pct}%</text>`;});
+  s+=`<polygon points="${caps.map((c,i)=>pt(i,R*c.pct/100).map(n=>n.toFixed(1)).join(",")).join(" ")}" fill="rgba(31,111,235,.18)" stroke="#1f6feb" stroke-width="2"/>`;
+  caps.forEach((c,i)=>{const[x,y]=pt(i,R*c.pct/100);s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#1f6feb"/>`;});
+  return s;
+}
+function domGuide(p){const b=bandFor(p).name;if(b==="Legacy Operator"||b==="In Transition")return "Biggest opportunity — the fastest place to build agentic capability.";if(b==="Agentic-Aware")return "You know the concepts here; structured depth makes them real.";if(b==="Agentic Practitioner")return "Strong — a focused push reaches CoE-leader level.";return "A genuine strength — leverage it and mentor others.";}
+
+function showResults(){
+  if(Object.keys(answers).length<TOTAL)return;
+  const fpct=id=>Math.round((answers[id]||0)/4*100);
+  // Role-weighted Perceived Competence: a role's critical functions count double.
+  const role=roleByKey(roleKey), crit=new Set(role.crit), W=id=>crit.has(id)?2:1;
+  const wsum=FUNCTIONS.reduce((a,b)=>a+W(b.id),0);
+  const PC=Math.round(FUNCTIONS.reduce((a,b)=>a+fpct(b.id)*W(b.id),0)/wsum);
+  // Frontier currency
+  const FC=Math.round(MARKERS.reduce((a,b)=>a+fpct(b.id),0)/MARKERS.length);
+  // Breadth coverage (functions on radar: rated >=1)
+  const onRadar=FUNCTIONS.filter(f=>(answers[f.id]||0)>=1).length;
+  const BC=Math.round(onRadar/FUNCTIONS.length*100);
+  // True Knowledge Index
+  const PCadj=PC*(0.6+0.4*FC/100);
+  const TRUE=Math.round(0.50*PCadj+0.30*FC+0.20*BC);
+  const GAP=PC-TRUE;
+  const ob=bandFor(TRUE);
+  // capabilities + domains
+  const caps=[...new Set(FUNCTIONS.map(f=>f.c))].map(c=>{const it=FUNCTIONS.filter(f=>f.c===c);return{cap:c,dom:it[0].d,pct:Math.round(it.reduce((a,b)=>a+fpct(b.id),0)/it.length)};});
+  const doms=Object.keys(DOMAINS).map(d=>{const it=FUNCTIONS.filter(f=>f.d===d);return{dom:d,color:DOMAINS[d].color,pct:Math.round(it.reduce((a,b)=>a+fpct(b.id),0)/it.length)};});
+  // missing functions (lowest 6)
+  const missing=[...FUNCTIONS].map(f=>({...f,pct:fpct(f.id)})).sort((a,b)=>a.pct-b.pct).slice(0,6);
+  // priorities for the chosen role (its critical functions, biggest gaps first)
+  const critList=FUNCTIONS.filter(f=>crit.has(f.id)).map(f=>({...f,pct:fpct(f.id)})).sort((a,b)=>a.pct-b.pct);
+  const prioritiesHtml = critList.length ? `
+  <div class="sec"><h3>Priorities for a ${role.label}</h3><p class="lead">These ${critList.length} functions weigh most for your role (they count double in your Index). Biggest gaps first — close these to move your score fastest.</p>
+    ${critList.map(m=>`<div class="miss"><div class="mh"><span>${m.f} <span style="color:var(--muted);font-weight:400">· ${m.c}</span></span><strong style="color:${colorFor(m.pct)}">${m.pct}%</strong></div><div class="mg">Frontier capability: ${m.gap}</div></div>`).join("")}
+  </div>` : "";
+  // frontier readout
+  const frRows=MARKERS.map(m=>{const p=fpct(m.id);const st=p>=75?"fluent":(p>=50?"partial":"blind");const col=p>=75?"var(--good)":(p>=50?"var(--gold)":"var(--low)");return{...m,p,st,col};});
+
+  const gapMsg = GAP>=10
+    ? `You rated yourself <b>${PC}%</b>. Measured against the agentic CRM ecosystem, your true knowledge is <b>${TRUE}%</b> — a <b>${GAP}-point gap</b>. That gap isn't a failing; it's the part of the ecosystem no one has trained you on yet.`
+    : (GAP<=-10
+      ? `You rated yourself <b>${PC}%</b>, but you're more ready than you think — your true knowledge measures <b>${TRUE}%</b>. You're underselling real, current capability.`
+      : `Your perceived (<b>${PC}%</b>) and true (<b>${TRUE}%</b>) knowledge are well aligned — a sign of honest, current self-awareness. The opportunity now is depth.`);
+
+  let h=`
+  <div class="res-hero">
+    ${LEAD?`<p class="greet">Results for ${LEAD.first}${LEAD.company?(" · "+LEAD.company):""}</p>`:""}
+    <div class="lbl" style="color:#bcd4ff">${role.label}</div>
+    <div class="lbl">CRM CoE True Knowledge Index</div>
+    <div class="gauge">${TRUE}%</div>
+    <span class="band" style="background:${ob.color}">${ob.name}</span>
+    <p class="gapline">${gapMsg}</p>
+    <p class="gapline" style="font-size:13.5px">${ob.msg}</p>
+  </div>
+  <div class="trio">
+    <div class="statcard"><div class="t">Perceived competence</div><div class="n" style="color:${colorFor(PC)}">${PC}%</div><div class="s">How capable you feel</div></div>
+    <div class="statcard"><div class="t">Frontier currency</div><div class="n" style="color:${colorFor(FC)}">${FC}%</div><div class="s">Fluency with the agentic shift</div></div>
+    <div class="statcard"><div class="t">Ecosystem coverage</div><div class="n" style="color:${colorFor(BC)}">${BC}%</div><div class="s">${FUNCTIONS.length-onRadar} blind spot(s) of ${FUNCTIONS.length}</div></div>
+  </div>
+
+  ${prioritiesHtml}
+
+  <div class="sec"><h3>Your three domains</h3>
+    ${doms.map(d=>`<div class="dom-row"><div class="top"><span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${d.color};margin-right:7px"></span>${d.dom}</span><span style="color:${colorFor(d.pct)};font-weight:800">${d.pct}% · ${bandFor(d.pct).name}</span></div><div class="track"><i style="width:${d.pct}%;background:${d.color}"></i></div><p class="dom-guide">${domGuide(d.pct)}</p></div>`).join("")}
+  </div>
+
+  <div class="sec"><h3>Capability radar</h3><p class="lead">Your nine capabilities against the agentic standard.</p><div class="radar-wrap"><svg viewBox="0 0 460 400" role="img" aria-label="Capability radar">${radar(caps)}</svg></div></div>
+
+  <div class="sec"><h3>Frontier currency readout</h3><p class="lead">How fluent you are in the shifts the ecosystem now runs on. Red = blind spot.</p>
+    ${frRows.map(m=>`<div class="fr"><span class="dotf" style="background:${m.col}"></span><span class="nm"><strong>${m.label}</strong></span><span class="tag" style="color:${m.col}">${m.st==="fluent"?"Fluent":(m.st==="partial"?"Partial":"Blind spot")}</span></div>`).join("")}
+  </div>
+
+  <div class="sec"><h3>The functions you're missing</h3><p class="lead">Your lowest-scoring functions — and the specific ecosystem capability behind each gap.</p>
+    ${missing.map(m=>`<div class="miss"><div class="mh"><span>${m.f} <span style="color:var(--muted);font-weight:400">· ${m.c}</span></span><strong style="color:${colorFor(m.pct)}">${m.pct}%</strong></div><div class="mg">Missing: ${m.gap}</div></div>`).join("")}
+  </div>
+
+  <div class="sec"><h3>Why this gap exists</h3><p class="lead" style="margin:0">The CRM moved from clicks to calls — from a UI you operate to an API-driven system of agents you must govern. Structured training hasn't reached most practitioners, so the gap you see above isn't about effort or talent. It's the <strong>Builder Gap</strong>, and it's entirely closeable with the right path.</p></div>
+
+  <div class="cta">
+    <h3>Close the gap — your path forward</h3>
+    <p>Turn the blind spots above into your edge. Here's how, in order:</p>
+    <div class="paths">
+      <a href="https://www.amazon.com/dp/B0DSV8B1FX" target="_blank" rel="noopener"><h4>1 · Read</h4><span>A Master Framework for the CRM CoE — the Agentic Cookbook behind this index.</span></a>
+      <a href="https://www.crmcoealliance.org" target="_blank" rel="noopener"><h4>2 · Train</h4><span>The CRM CoE Mastery Program — structured depth on every function you're missing.</span></a>
+      <a href="https://www.crmcoealliance.org" target="_blank" rel="noopener"><h4>3 · Belong</h4><span>The CRM CoE community — close the Builder Gap alongside other practitioners.</span></a>
+    </div>
+  </div>
+
+  <div class="fbcard" id="fbcard">
+    <h3>&#128681; Pilot feedback</h3>
+    <p class="lead">You&apos;re helping shape the final assessment. Two quick ratings and anything you noticed — it all helps.</p>
+    <label>How relevant were the questions to your role?</label>
+    <div class="rate" id="rateRel">${[1,2,3,4,5].map(n=>`<button type="button" onclick="setRate('rel',${n},this)">${n}</button>`).join("")}</div>
+    <div class="rate-key"><span>1 = Not relevant</span><span>3 = Somewhat relevant</span><span>5 = Highly relevant</span></div>
+    <label>How clear and well-worded were they?</label>
+    <div class="rate" id="rateClr">${[1,2,3,4,5].map(n=>`<button type="button" onclick="setRate('clr',${n},this)">${n}</button>`).join("")}</div>
+    <div class="rate-key"><span>1 = Confusing</span><span>3 = Mostly clear</span><span>5 = Very clear</span></div>
+    <label>Any question that felt irrelevant, wrong, or confusing?</label>
+    <textarea id="fbWrong" rows="2" placeholder="Which one(s) and why…"></textarea>
+    <label>What&apos;s missing — questions or topics you&apos;d add?</label>
+    <textarea id="fbMissing" rows="2"></textarea>
+    <label>Anything else?</label>
+    <textarea id="fbOther" rows="2"></textarea>
+    <label style="font-weight:400;margin-top:14px;display:flex;gap:8px;align-items:flex-start"><input type="checkbox" id="fbFollow" style="width:auto;margin-top:3px"> It&apos;s OK to follow up with me about this feedback.</label>
+    <div class="fbflags" id="fbFlags"></div>
+    <button class="navbtn primary" style="margin-left:0;margin-top:14px" onclick="submitFeedback()">Submit feedback</button>
+  </div>
+
+  <div class="toolbar">
+    <button onclick="window.print()">Save / Print (PDF)</button>
+    <button onclick="restart()">Retake the assessment</button>
+  </div>`;
+
+  document.getElementById('results').innerHTML=h;
+  populateFbFlags();
+  if(LEAD)sendToSheet({stage:"completed",assessment:"True Knowledge Index",...LEAD,
+    overallPct:TRUE,maturity:ob.name,roleReadiness:PC,
+    perceivedPct:PC,frontierCurrency:FC,ecosystemCoverage:BC,trueKnowledgeIndex:TRUE,confidenceGap:GAP,band:ob.name,date:new Date().toISOString()});
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('results').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function restart(){
+  for(const k in answers)delete answers[k];
+  for(const k in FLAGS)delete FLAGS[k]; RATE.rel=0; RATE.clr=0;
+  document.querySelectorAll('#quizPages input[type=radio]').forEach(r=>r.checked=false);
+  curPage=0;
+  document.getElementById('results').style.display='none';
+  document.getElementById('results').innerHTML='';
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('intro').style.display='block';
+  document.getElementById('pbarFill').style.width="0%";
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.getElementById('yr').textContent=new Date().getFullYear();
+buildCategorySelect();onCategoryChange();
+buildQuiz();
+
+/* auto-resize when embedded (Kajabi) */
+function reportHeight(){if(window.parent&&window.parent!==window){try{window.parent.postMessage({crmAssessmentHeight:document.documentElement.scrollHeight},"*");}catch(e){}}}
+window.addEventListener("load",reportHeight);window.addEventListener("resize",reportHeight);
+try{new MutationObserver(reportHeight).observe(document.body,{subtree:true,childList:true,attributes:true});}catch(e){}
+setInterval(reportHeight,1000);
+</script>
+</body>
+</html>
