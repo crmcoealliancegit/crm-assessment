@@ -98,6 +98,14 @@
   .res-hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:16px;padding:28px;text-align:center;box-shadow:var(--shadow)}
   .res-hero .greet{font-size:13.5px;color:#9fc0ff;margin:0 0 2px}
   .res-hero .lbl{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:#9fc0ff;font-weight:600;margin-top:6px}
+  .gateCard,.inscard{background:#eef4fc;border:1px solid #d4e2f5;border-radius:14px;padding:22px;margin-top:16px}
+  .gateCard h3,.inscard h3{margin:0 0 6px;font-size:19px;color:var(--navy)}
+  .gate-fields{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 4px}
+  .gate-fields label{flex:1;min-width:220px;display:flex;flex-direction:column;font-size:13px;font-weight:600;color:var(--navy)}
+  .gate-fields input{margin-top:5px;padding:11px 12px;border:1.5px solid #c4d5ee;border-radius:9px;font-size:15px}
+  .gate-fields input:focus,.inscard textarea:focus{outline:none;border-color:var(--blue)}
+  .inscard label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-top:10px}
+  .inscard textarea{width:100%;margin-top:5px;padding:10px 12px;border:1.5px solid #c4d5ee;border-radius:9px;font-size:15px;font-family:inherit}
   .gauge{font-size:56px;font-weight:800;line-height:1;margin:4px 0}
   .band{display:inline-block;font-size:14px;font-weight:700;padding:6px 16px;border-radius:20px;margin-top:4px}
   .gapline{color:#cfe0f7;max-width:640px;margin:16px auto 0;font-size:15px}
@@ -136,7 +144,7 @@
   <div class="kick">CRM Mastery Program</div>
   <h1>CRM CoE True Knowledge Index</h1>
   <p class="sub">How confident you feel about CRM isn't the same as how current you are. This assessment measures your <strong>true knowledge</strong> against the agentic CRM ecosystem — and shows you exactly where the gap is.</p>
-  <div class="author">By <strong>Velu Palani</strong> · <a href="https://www.crmcoealliance.org" target="_blank" rel="noopener">crmcoealliance.org</a> · grounded in <em>A Master Framework for the CRM CoE</em></div>
+  <div class="author"><a href="https://www.crmcoealliance.org" target="_blank" rel="noopener">crmcoealliance.org</a> · grounded in <em>A Master Framework for the CRM CoE</em></div>
 </header>
 
 <div class="wrap">
@@ -153,27 +161,12 @@
     <div class="pilot-hint" style="margin-top:16px">&#128681; <strong>This is a pilot.</strong> As you go through the assessment, flag any question that feels irrelevant, wrong, or unclear, and leave feedback at the end — it directly shapes the final version. Thank you for helping.</div>
 
     <div class="rolepick" style="margin-top:14px;background:#eef4fc;border:1px solid #d4e2f5;border-radius:12px;padding:16px 18px">
-      <label style="display:block;font-weight:700;color:var(--navy);font-size:14.5px;margin-bottom:8px">Pick your category and role — it tailors every question to your world:</label>
+      <label style="display:block;font-weight:700;color:var(--navy);font-size:14.5px;margin-bottom:8px">Two quick picks tailor your assessment — then you're straight in:</label>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <select id="catSelect" onchange="onCategoryChange()" aria-label="Category" style="flex:1;min-width:200px;max-width:340px;font-size:15px;padding:11px 12px;border:1.5px solid #c4d5ee;border-radius:9px;background:#fff;color:var(--ink);cursor:pointer"></select>
-        <select id="roleSelect" onchange="onRoleChange()" aria-label="Role" style="flex:1;min-width:200px;max-width:340px;font-size:15px;padding:11px 12px;border:1.5px solid #c4d5ee;border-radius:9px;background:#fff;color:var(--ink);cursor:pointer"></select>
-      </div>
-    </div>
-
-    <div class="leadform">
-      <h3>Tell us about you to begin</h3>
-      <p class="lf-intro">We use this to send your results and tailor CRM Mastery resources to your goals. About a minute, then your assessment starts.</p>
-      <div class="lf-grid">
-        <label>First name*<input type="text" id="lfFirst" autocomplete="given-name"></label>
-        <label>Last name*<input type="text" id="lfLast" autocomplete="family-name"></label>
-        <label>Work email*<input type="email" id="lfEmail" autocomplete="email" placeholder="you@company.com"></label>
-        <label>Phone<input type="tel" id="lfPhone" autocomplete="tel" placeholder="Optional"></label>
-        <label>Company*<input type="text" id="lfCompany" autocomplete="organization"></label>
-        <label>Role / title<input type="text" id="lfRole" placeholder="e.g. CRM Architect, CIO"></label>
-      </div>
-      <label class="lf-block" style="display:block;font-size:13px;font-weight:600;color:var(--navy)">Technology platform*
-        <select id="lfPlatform" style="width:100%;margin-top:5px">
-          <option value="">Select your CRM platform…</option>
+        <select id="catSelect" onchange="onCategoryChange()" aria-label="Category" style="flex:1;min-width:180px;max-width:340px;font-size:15px;padding:11px 12px;border:1.5px solid #c4d5ee;border-radius:9px;background:#fff;color:var(--ink);cursor:pointer"></select>
+        <select id="roleSelect" onchange="onRoleChange()" aria-label="Role" style="flex:1;min-width:180px;max-width:340px;font-size:15px;padding:11px 12px;border:1.5px solid #c4d5ee;border-radius:9px;background:#fff;color:var(--ink);cursor:pointer"></select>
+        <select id="lfPlatform" aria-label="CRM platform" style="flex:1;min-width:180px;max-width:340px;font-size:15px;padding:11px 12px;border:1.5px solid #c4d5ee;border-radius:9px;background:#fff;color:var(--ink);cursor:pointer">
+          <option value="">Your CRM platform…</option>
           <option>Salesforce</option>
           <option>MS Dynamics CRM</option>
           <option>SAP CRM</option>
@@ -181,17 +174,11 @@
           <option>HubSpot</option>
           <option>Modern CRM (like Attio)</option>
           <option>Other</option>
-        </select></label>
-      <label class="lf-block" style="display:block;font-size:13px;font-weight:600;color:var(--navy)">Location
-        <input type="text" id="lfLocation" placeholder="City, Country" style="width:100%;margin-top:5px"></label>
-      <label class="lf-block" style="display:block;font-size:13px;font-weight:600;color:var(--navy)">What&apos;s your career challenge in the AI era?*
-        <textarea id="lfChallenge" rows="3" placeholder="A sentence or two…" style="width:100%;margin-top:5px"></textarea></label>
-      <label class="lf-block" style="display:block;font-size:13px;font-weight:600;color:var(--navy)">How are you planning to keep up with the AI disruption?*
-        <textarea id="lfPlan" rows="3" placeholder="A sentence or two…" style="width:100%;margin-top:5px"></textarea></label>
-      <label class="consent"><input type="checkbox" id="lfConsent" checked> I&apos;d like to receive my results and occasional CRM Mastery insights from Velu Palani.</label>
-      <div class="err" id="lfErr"></div>
-      <button class="startbtn" onclick="validateAndStart()">Start the assessment &rarr;</button>
-      <p class="note">Your details stay private and are used only to share your results and CRM Mastery resources.</p>
+        </select>
+      </div>
+      <div class="err" id="lfErr" style="margin-top:8px"></div>
+      <button class="startbtn" onclick="validateAndStart()" style="margin-top:12px">Start the assessment &rarr;</button>
+      <p class="note">No sign-up to start. You'll see your score first, then choose whether to unlock the full results.</p>
     </div>
   </section>
 
@@ -345,7 +332,7 @@ const BANDS=[
  {min:61,max:80,name:"Agentic Practitioner",color:"#46a06b",msg:"You build and govern agents independently. A focused push takes you to CoE leadership."},
  {min:81,max:100,name:"Agentic CoE Leader",color:"#1faa59",msg:"You set the standard and supervise systems. You're positioned to lead and mentor the field."}
 ];
-const SHEET_ENDPOINT="https://script.google.com/macros/s/AKfycby24O6aAEN7kuNizcTFsTC4lIFaQYgV-vOIrPf0GD-XhYVnHImC1a6NtkkxWOxNeM3BRA/exec";
+const SHEET_ENDPOINT="https://script.google.com/macros/s/AKfycbydJdc_QuAGT9K7z6NqjTSExadD5sbhzdqWgexgQwbn35Li1muVMPIwTAEvPKgxrmw1zQ/exec";
 
 /* ============ STATE ============ */
 const answers={}; // id/markerId -> 0..4
@@ -443,26 +430,43 @@ function prevPage(){if(curPage>0)showPage(curPage-1);}
 function answer(id,v){answers[id]=v;const done=Object.keys(answers).length;document.getElementById('pdone').textContent=done;document.getElementById('pbarFill').style.width=(done/TOTAL*100)+"%";updateNav();}
 
 /* ============ LEAD ============ */
+let RESULT=null, PLATFORM="";
 function sendToSheet(p){if(!SHEET_ENDPOINT)return;try{fetch(SHEET_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p)});}catch(e){}}
 function validateAndStart(){
-  const g=id=>document.getElementById(id).value.trim();
-  const first=g('lfFirst'),last=g('lfLast'),email=g('lfEmail'),phone=g('lfPhone'),company=g('lfCompany'),roleT=g('lfRole'),location=g('lfLocation'),challenge=g('lfChallenge'),plan=g('lfPlan'),platform=g('lfPlatform');
-  const consent=document.getElementById('lfConsent').checked, err=document.getElementById('lfErr');
-  if(!first||!last){err.textContent="Please enter your first and last name.";return;}
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent="Please enter a valid email address.";return;}
-  if(!company){err.textContent="Please enter your company.";return;}
-  if(!platform){err.textContent="Please select your technology platform.";return;}
-  if(!challenge){err.textContent="Please share your career challenge in the AI era.";return;}
-  if(!plan){err.textContent="Please share how you plan to keep up with AI disruption.";return;}
+  const platform=document.getElementById('lfPlatform').value;
+  const err=document.getElementById('lfErr');
+  if(!platform){err.textContent="Please pick your CRM platform to continue.";return;}
   err.textContent="";
   onRoleChange();
-  const roleLabel=roleByKey(roleKey).label;
-  LEAD={first,last,name:(first+" "+last).trim(),email,phone,company,platform,role:roleLabel,title:roleT,roleSelected:roleLabel,category:categoryByKey(document.getElementById('catSelect').value).label,location,challenge,plan,consent};
-  sendToSheet({stage:"lead",assessment:"True Knowledge Index",...LEAD,date:new Date().toISOString()});
+  PLATFORM=platform;
   buildQuiz(); // rebuild with the chosen role's wording
   document.getElementById('intro').style.display='none';
   document.getElementById('quizScreen').style.display='block';
   curPage=0;showPage(0);
+}
+function unlockResults(){
+  const name=document.getElementById('leadName').value.trim();
+  const email=document.getElementById('leadEmail').value.trim();
+  let linkedin=document.getElementById('leadLinkedIn').value.trim();
+  const consent=document.getElementById('leadConsent').checked;
+  const err=document.getElementById('gateErr');
+  if(!name){err.textContent="Please enter your name.";return;}
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){err.textContent="Please enter a valid work email.";return;}
+  if(!/linkedin\.com\/(in|pub|profile)\//i.test(linkedin)){err.textContent="Please enter a valid LinkedIn profile URL (e.g. linkedin.com/in/yourname).";return;}
+  if(!/^https?:\/\//i.test(linkedin))linkedin="https://"+linkedin;
+  err.textContent="";
+  LEAD={name,email,linkedin,consent,role:(RESULT&&RESULT.role)||roleByKey(roleKey).label,platform:PLATFORM,category:(RESULT&&RESULT.category)||""};
+  sendToSheet({stage:"completed",assessment:"True Knowledge Index",first:name,name,email,linkedin,consent,...(RESULT||{}),date:new Date().toISOString()});
+  document.getElementById('gateCard').style.display='none';
+  document.getElementById('fullResults').style.display='block';
+  document.getElementById('fullResults').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function submitInsights(){
+  const challenge=document.getElementById('insChallenge').value.trim();
+  const plan=document.getElementById('insPlan').value.trim();
+  if(!challenge&&!plan){document.getElementById('insCard').querySelector('.lead').textContent="Add a note in either box, then Share.";return;}
+  sendToSheet({stage:"insight",assessment:"True Knowledge Index",name:(LEAD&&LEAD.name)||"",email:(LEAD&&LEAD.email)||"",role:(LEAD&&LEAD.role)||"",challenge,plan,date:new Date().toISOString()});
+  document.getElementById('insCard').innerHTML='<h3>Thank you &#128591;</h3><p class="lead" style="margin:0">Your reflections help shape the CRM CoE Alliance’s training and community.</p>';
 }
 
 /* ============ SCORING ============ */
@@ -518,7 +522,6 @@ function showResults(){
 
   let h=`
   <div class="res-hero">
-    ${LEAD?`<p class="greet">Results for ${LEAD.first}${LEAD.company?(" · "+LEAD.company):""}</p>`:""}
     <div class="lbl" style="color:#bcd4ff">${role.label}</div>
     <div class="lbl">CRM CoE True Knowledge Index</div>
     <div class="gauge">${TRUE}%</div>
@@ -526,6 +529,22 @@ function showResults(){
     <p class="gapline">${gapMsg}</p>
     <p class="gapline" style="font-size:13.5px">${ob.msg}</p>
   </div>
+
+  <div class="gateCard" id="gateCard">
+    <h3>Unlock your full breakdown + recommended next step</h3>
+    <p class="lead">Your score is above. Enter your work email to reveal your full results — role priorities, the capability radar, your blind spots, and the exact path to close your gap. We&apos;ll email you a copy too.</p>
+    <div class="gate-fields">
+      <label>Full name*<input type="text" id="leadName" autocomplete="name" placeholder="Your name"></label>
+      <label>Work email*<input type="email" id="leadEmail" autocomplete="email" placeholder="you@company.com"></label>
+      <label>LinkedIn profile*<input type="url" id="leadLinkedIn" autocomplete="url" placeholder="linkedin.com/in/yourname"></label>
+    </div>
+    <label class="consent"><input type="checkbox" id="leadConsent"> I&apos;d like to receive occasional CRM Mastery insights from the CRM CoE Alliance.</label>
+    <div class="err" id="gateErr"></div>
+    <button class="navbtn primary" style="margin-left:0;margin-top:12px" onclick="unlockResults()">Unlock my full results &rarr;</button>
+    <p class="note">We just need your name, work email, and LinkedIn. Leaving consent unchecked is fine — you&apos;ll still get your results.</p>
+  </div>
+
+  <div id="fullResults" style="display:none">
   <div class="trio">
     <div class="statcard"><div class="t">Perceived competence</div><div class="n" style="color:${colorFor(PC)}">${PC}%</div><div class="s">How capable you feel</div></div>
     <div class="statcard"><div class="t">Frontier currency</div><div class="n" style="color:${colorFor(FC)}">${FC}%</div><div class="s">Fluency with the agentic shift</div></div>
@@ -556,8 +575,18 @@ function showResults(){
     <div class="paths">
       <a href="https://www.amazon.com/dp/B0DSV8B1FX" target="_blank" rel="noopener"><h4>1 · Read</h4><span>A Master Framework for the CRM CoE — the Agentic Cookbook behind this index.</span></a>
       <a href="https://www.crmcoealliance.org" target="_blank" rel="noopener"><h4>2 · Train</h4><span>The CRM CoE Mastery Program — structured depth on every function you're missing.</span></a>
-      <a href="https://www.crmcoealliance.org" target="_blank" rel="noopener"><h4>3 · Belong</h4><span>The CRM CoE community — close the Builder Gap alongside other practitioners.</span></a>
+      <a href="https://www.crmcoealliance.org/membership" target="_blank" rel="noopener"><h4>3 · Belong</h4><span>The CRM CoE community — close the Builder Gap alongside other practitioners.</span></a>
     </div>
+  </div>
+
+  <div class="inscard" id="insCard">
+    <h3>Help shape the CRM CoE Alliance <span style="font-weight:400;color:var(--muted);font-size:14px">(optional)</span></h3>
+    <p class="lead">Now that you&apos;ve seen your score, two quick reflections — they help us build the right training and community.</p>
+    <label>What&apos;s your career challenge in the AI era?</label>
+    <textarea id="insChallenge" rows="2" placeholder="A sentence or two…"></textarea>
+    <label>How are you planning to keep up with the AI disruption?</label>
+    <textarea id="insPlan" rows="2" placeholder="A sentence or two…"></textarea>
+    <button class="navbtn primary" style="margin-left:0;margin-top:12px" onclick="submitInsights()">Share</button>
   </div>
 
   <div class="fbcard" id="fbcard">
@@ -583,13 +612,21 @@ function showResults(){
   <div class="toolbar">
     <button onclick="window.print()">Save / Print (PDF)</button>
     <button onclick="restart()">Retake the assessment</button>
+  </div>
   </div>`;
 
   document.getElementById('results').innerHTML=h;
   populateFbFlags();
-  if(LEAD)sendToSheet({stage:"completed",assessment:"True Knowledge Index",...LEAD,
-    overallPct:TRUE,maturity:ob.name,roleReadiness:PC,
-    perceivedPct:PC,frontierCurrency:FC,ecosystemCoverage:BC,trueKnowledgeIndex:TRUE,confidenceGap:GAP,band:ob.name,date:new Date().toISOString()});
+  const breakdown={
+    domains:doms.map(d=>({name:d.dom,pct:d.pct,band:bandFor(d.pct).name})),
+    capabilities:caps.map(c=>({name:c.cap,pct:c.pct,band:bandFor(c.pct).name})),
+    frontier:frRows.map(m=>({name:m.label,pct:m.p,status:m.st})),
+    priorities:critList.map(m=>({func:m.f,cap:m.c,pct:m.pct,gap:m.gap})),
+    missing:missing.map(m=>({func:m.f,cap:m.c,pct:m.pct,gap:m.gap})),
+    blindSpots:FUNCTIONS.length-onRadar,totalFunctions:FUNCTIONS.length,
+    bandMsg:ob.msg,gapText:gapMsg.replace(/<[^>]+>/g,"")};
+  RESULT={role:role.label,category:categoryByKey(document.getElementById('catSelect').value).label,platform:PLATFORM,
+    overallPct:TRUE,maturity:ob.name,roleReadiness:PC,perceivedPct:PC,frontierCurrency:FC,ecosystemCoverage:BC,trueKnowledgeIndex:TRUE,confidenceGap:GAP,band:ob.name,breakdown:breakdown};
   document.getElementById('quizScreen').style.display='none';
   document.getElementById('results').style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
@@ -598,7 +635,8 @@ function restart(){
   for(const k in answers)delete answers[k];
   for(const k in FLAGS)delete FLAGS[k]; RATE.rel=0; RATE.clr=0;
   document.querySelectorAll('#quizPages input[type=radio]').forEach(r=>r.checked=false);
-  curPage=0;
+  curPage=0; LEAD=null; RESULT=null; PLATFORM="";
+  const pf=document.getElementById('lfPlatform'); if(pf)pf.value="";
   document.getElementById('results').style.display='none';
   document.getElementById('results').innerHTML='';
   document.getElementById('quizScreen').style.display='none';
